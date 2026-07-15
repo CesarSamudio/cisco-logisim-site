@@ -1,0 +1,148 @@
+---
+const team = [
+  {
+    name: 'César Samudio',
+    role: 'Desarrollador',
+    photo: '/images/team/cesar.jpg',
+    initials: 'CS',
+  },
+  {
+    name: 'Caleb Duarte',
+    role: 'Administrador de imágenes',
+    photo: '/images/team/caleb.jpeg',
+    initials: 'CD',
+  },
+];
+---
+
+<section id="equipo" class="section team-section">
+  <div class="container">
+    <span class="section__eyebrow">Equipo de investigación</span>
+    <h2 class="section__title">Las personas detrás del sitio.</h2>
+    <p class="section__lead">
+      Dos estudiantes de IT Essentials investigando las herramientas que usan a diario.
+      Documentamos con rigor lo que encontramos y lo compartimos aquí.
+    </p>
+
+    <div class="team-grid">
+      {team.map(member => (
+        <article class="team-card">
+        <div class="team-card__photo">
+          <img
+            src={member.photo}
+            alt={`Foto de ${member.name}`}
+            class="team-card__img"
+          />
+        </div>
+        <h3 class="team-card__name">{member.name}</h3>
+        <p class="team-card__role">{member.role}</p>
+      </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.team-section {
+  background: var(--color-bg-soft, #faf9fb);
+}
+
+.section__eyebrow {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+}
+
+.section__title {
+  margin-bottom: var(--space-5);
+  font-style: italic;
+  font-weight: 500;
+  max-width: 800px;
+}
+
+.section__lead {
+  font-size: var(--fs-lg);
+  line-height: 1.6;
+  margin-bottom: var(--space-7);
+  max-width: 700px;
+  color: var(--color-text-muted, #5a5560);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-6);
+  max-width: 720px;
+}
+
+.team-card {
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  text-align: center;
+  transition: all var(--t-base, 0.3s ease);
+}
+
+.team-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+  border-color: var(--color-accent);
+}
+
+.team-card__photo {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto var(--space-5);
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--color-accent-soft);
+  position: relative;
+}
+
+.team-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.team-card__placeholder {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  font-style: italic;
+}
+
+.team-card__name {
+  font-size: var(--fs-xl);
+  margin: 0 0 var(--space-2);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.team-card__role {
+  font-size: var(--fs-sm);
+  color: var(--color-accent);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .team-grid { grid-template-columns: 1fr; max-width: 320px; margin-inline: auto; }
+}
+</style>

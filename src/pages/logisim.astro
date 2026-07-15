@@ -1,0 +1,553 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import ImgPlaceholder from '../components/ImgPlaceholder.astro';
+import YouTubeEmbed from '../components/YouTubeEmbed.astro';
+
+const features = [
+  { icon: '🧩', title: 'Diseñador visual', desc: 'Coloca compuertas, switches, LEDs y circuitos integrados en un canvas con interfaz drag & drop intuitiva.' },
+  { icon: '📈', title: 'Cronograma (timing)', desc: 'Visualiza la evolución de señales en el tiempo. Observa cómo cambia cada cable cuando toggleas los switches.' },
+  { icon: '⚙️', title: 'Componentes VHDL', desc: 'El comportamiento de los componentes puede especificarse en VHDL, el lenguaje de descripción de hardware estándar.' },
+  { icon: '🌍', title: 'Multiplataforma', desc: 'Corre en Windows, macOS y Linux gracias a Java. La misma aplicación funciona idéntica en los tres sistemas.' },
+];
+
+const pros = [
+  { icon: '🆓', title: 'Open source y libre', desc: 'Licencia GPL, código fuente disponible en GitHub, sin restricciones para uso educativo o investigación.' },
+  { icon: '📚', title: 'Librería gigante', desc: 'Componentes TTL, LEDs, switches, displays, SoCs, subcircuitos personalizados. Es el simulador con más componentes listos.' },
+  { icon: '🔌', title: 'Integración con hardware', desc: 'Los esquemáticos pueden simularse en placas reales (FPGA, placas FPGA educativas) usando TCL/TK console.' },
+];
+
+const cons = [
+  { icon: '☕', title: 'Requiere Java 21+', desc: 'La aplicación no arranca si tu sistema no tiene al menos Java 21 instalado. En equipos antiguos puede ser un obstáculo inicial.' },
+  { icon: '🍎', title: 'App no firmada en macOS', desc: 'El .dmg de macOS no está firmado con certificado Apple. Hay que aprobar manualmente en Preferencias del Sistema la primera vez.' },
+];
+
+const installSteps = [
+  { title: 'Elige tu plataforma', desc: 'Visita https://github.com/logisim-evolution/logisim-evolution/releases y descarga el instalador correspondiente a tu sistema operativo (MSI para Windows, DMG para macOS, .deb/.rpm/.snap para Linux).', img: '/images/logisim/inst-01-plataforma.jpg' },
+  { title: 'Instala el paquete', desc: 'Ejecuta el instalador con permisos de administrador (Windows/Linux). En macOS, arrastra el .app a la carpeta Aplicaciones y ábrelo desde Preferencias del Sistema la primera vez para aprobarlo.', img: '/images/logisim/inst-02-instala.jpg' },
+  { title: 'Verifica Java (opcional)', desc: 'Si usas el JAR portable (logisim-evolution-*-all.jar), asegúrate de tener Java 21+ instalado. Puedes verificar con: java -version en la terminal.', img: '/images/logisim/inst-03-java.jpg' },
+  { title: 'Primer lanzamiento', desc: 'Abre la aplicación. Verás un canvas vacío. Coloca un Input, una compuerta AND y un Output desde el panel de componentes para crear tu primer circuito.', img: '/images/logisim/inst-04-launch.jpg' },
+];
+
+const galleryImages = [
+  { label: 'IMG - File New', caption: 'Crear un nuevo proyecto: File → New', ratio: '4/3', src: '/images/logisim/gal-01-new.jpg' },
+  { label: 'IMG - Panel componentes', caption: 'Panel izquierdo con componentes disponibles', ratio: 'auto', src: '/images/logisim/gal-02-panel.jpg' },
+  { label: 'IMG - Input Pin', caption: 'Colocar un pin de entrada (Input)', ratio: '4/3', src: '/images/logisim/gal-03-input.jpg' },
+  { label: 'IMG - AND gate', caption: 'Insertar compuerta AND desde la librería Gates', ratio: '4/3', src: '/images/logisim/gal-04-and.jpg' },
+  { label: 'IMG - Cableado', caption: 'Conexión: Input → AND → Output', ratio: '4/3', src: '/images/logisim/gal-05-cableado.jpg' },
+  { label: 'IMG - Toggle switches', caption: 'Cambiar el estado de los switches con clic', ratio: '4/3', src: '/images/logisim/gal-06-toggle.jpg' },
+  { label: 'IMG - LED Output', caption: 'Observar el LED encenderse según la lógica', ratio: '4/3', src: '/images/logisim/gal-07-led.jpg' },
+];
+
+const requirements = [
+  { name: 'Sistema operativo', value: 'Windows 10+, macOS 11+, Linux (cualquier distro reciente)' },
+  { name: 'Java Runtime', value: 'Java 21 o superior (incluido en instaladores oficiales)' },
+  { name: 'RAM mínima', value: '512 MB (1 GB recomendado para circuitos grandes)' },
+  { name: 'Espacio en disco', value: '~200 MB para la aplicación + espacio para proyectos' },
+  { name: 'Resolución', value: '1024×768 mínimo (Full HD recomendado)' },
+  { name: 'Conexión a internet', value: 'Solo para descarga inicial' },
+];
+
+const videos = [
+  { label: 'VIDEO 1', sublabel: 'Mi primer circuito: AND gate en 5 minutos' },
+  { label: 'VIDEO 2', sublabel: 'Cronograma y simulación temporal' },
+  { label: 'VIDEO 3', sublabel: 'Creando un sumador completo con compuertas' },
+];
+
+const platformDownloads = [
+  { os: 'Windows (Intel/AMD)', file: 'logisim-evolution-X.X.X-amd64.msi', note: 'Instalador estándar' },
+  { os: 'Windows (ARM)', file: 'logisim-evolution-X.X.X-aarch64.msi', note: 'Para dispositivos ARM' },
+  { os: 'macOS (Apple Silicon)', file: 'logisim-evolution-X.X.X-aarch64.dmg', note: 'Para M1/M2/M3' },
+  { os: 'macOS (Intel)', file: 'logisim-evolution-X.X.X-x86_64.dmg', note: 'También corre vía Rosetta' },
+  { os: 'Linux (Debian/Ubuntu)', file: 'logisim-evolution_X.X.X-1_amd64.deb', note: 'Paquete Debian' },
+  { os: 'Linux (Fedora/Red Hat)', file: 'logisim-evolution-X.X.X-1.x86_64.rpm', note: 'Paquete RPM' },
+  { os: 'Cualquier OS', file: 'logisim-evolution-X.X.X-all.jar', note: 'JAR portable (requiere Java 21+)' },
+];
+---
+<BaseLayout
+  title="Logisim Evolution — Investigación"
+  description="Investigación completa sobre Logisim Evolution: simulador de circuitos lógicos digitales open source en Java."
+  current="logisim"
+>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__bg" aria-hidden="true">
+      <div class="hero__blob hero__blob--1"></div>
+      <div class="hero__blob hero__blob--2"></div>
+    </div>
+    <div class="container hero__inner">
+      <span class="hero__eyebrow">Aplicación #2 · Simulador de circuitos</span>
+      <h1 class="hero__title">Logisim Evolution.</h1>
+      <p class="hero__subtitle">
+        Herramienta educativa open source para diseñar y simular circuitos lógicos digitales.
+        Construida en Java, multiplataforma, con soporte para VHDL, cronogramas y una librería
+        gigante de componentes.
+      </p>
+      <div class="hero__actions">
+        <Button href="#introduccion" text="Comenzar lectura" variant="primary" size="lg" />
+        <Button href="#videos" text="Ver videos" variant="outline" size="lg" />
+      </div>
+      <div style="max-width: 900px; margin: var(--space-7) auto 0;">
+        <img src="/images/logisim/hero.jpg" alt="Captura oficial de Logisim Evolution mostrando un circuito complejo" class="hero__img" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 1. Introducción y Propósito -->
+  <section id="introduccion" class="section intro-section">
+    <div class="container">
+      <div class="intro-grid">
+        <div>
+          <span class="section__eyebrow">01 · Introducción y Propósito</span>
+          <h2 class="section__title">¿Qué es y para qué sirve?</h2>
+          <p class="intro-lead">
+            <strong>Logisim Evolution</strong> es un software educativo <em>open source</em> para diseñar
+            y simular circuitos lógicos digitales. Es la evolución moderna del clásico Logisim original,
+            mantenido por una comunidad activa en GitHub.
+          </p>
+          <p class="intro-text">
+            Permite a estudiantes de ingeniería electrónica, ciencias de la computación y áreas afines
+            crear circuitos digitales visualmente — colocar compuertas, switches, LEDs, multiplexores,
+            flip-flops y microprocesadores — y simular su comportamiento en tiempo real, todo sin necesidad
+            de hardware físico.
+          </p>
+          <div class="intro-callout">
+            <div class="intro-callout__icon">⚡</div>
+            <div>
+              <strong>¿Cuál es su funcionalidad?</strong> Simular el comportamiento de circuitos digitales
+              compuestos por compuertas lógicas (AND, OR, NOT, XOR), circuitos integrados TTL, memorias,
+              y hasta CPUs simples. Incluye editor visual, simulación interactiva, cronogramas (timing
+              diagrams) y exportación a VHDL.
+            </div>
+          </div>
+        </div>
+        <div>
+                  <img
+                    src="/images/logisim/canva-logisim-evolution.png"
+                    alt="Diseño en Canva: Logisim Evolution - herramienta educativa para circuitos digitales"
+                    class="intro-canva"
+                    loading="lazy"
+                  />
+                </div>
+      </div>
+    </div>
+  </section><section id="videos" class="section section--purple videos-section">
+    <div class="container">
+      <span class="purple__eyebrow">02 · Videos demostrativos</span>
+      <h2 class="videos-title">Mira Logisim en acción.</h2>
+      <p class="videos-desc">
+        Videos de YouTube embebidos que se reproducen directamente aquí. Tutoriales sobre cómo
+        instalar Logisim Evolution y construir circuitos básicos desde cero.
+      </p>
+
+      <div class="videos-grid">
+        <div class="video-card">
+          <YouTubeEmbed id="MnpaNTacvU4" title="Micro guía de uso de la herramienta Logisim Evolution" />
+          <p class="video-card__title">Micro guía de uso de Logisim Evolution</p>
+        </div>
+        <div class="video-card">
+          <YouTubeEmbed id="cMz7wyY_PxE" title="Logisim Beginner's Tutorial" />
+          <p class="video-card__title">Tutorial para principiantes en inglés</p>
+        </div>
+        <div class="video-card">
+          <YouTubeEmbed id="uGrdNJiWjcY" title="Aprende a usar Logisim" />
+          <p class="video-card__title">Aprende a usar Logisim (español)</p>
+        </div>
+      </div>
+    </div>
+  </section><section class="section section--alt pros-section">
+    <div class="container">
+      <span class="section__eyebrow">03 · Ventajas y Limitaciones</span>
+      <h2 class="section__title">Por qué destaca y dónde flaquea.</h2>
+      <p class="section__lead">
+        Logisim Evolution es una de las herramientas más usadas en universidades de todo el mundo.
+        Veamos qué lo hace especial y qué puede ser un obstáculo.
+      </p>
+
+      <div class="pros-cons">
+        <article class="pros-card">
+          <div class="pros-card__head">
+            <div class="pros-card__icon pros-card__icon--pros">✓</div>
+            <h3>Ventajas</h3>
+          </div>
+          <ul class="pros-list">
+            {pros.map(p => (
+              <li>
+                <span class="pros-list__icon">{p.icon}</span>
+                <div>
+                  <strong>{p.title}</strong>
+                  <p>{p.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </article>
+
+        <article class="pros-card pros-card--cons">
+          <div class="pros-card__head">
+            <div class="pros-card__icon pros-card__icon--cons">!</div>
+            <h3>Limitaciones técnicas</h3>
+          </div>
+          <ul class="pros-list">
+            {cons.map(c => (
+              <li>
+                <span class="pros-list__icon">{c.icon}</span>
+                <div>
+                  <strong>{c.title}</strong>
+                  <p>{c.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section><section class="section install-section">
+    <div class="container container-narrow">
+      <span class="section__eyebrow">04 · Guía de Descarga e Instalación</span>
+      <h2 class="section__title">Descarga oficial,<br/>instalación por plataforma.</h2>
+      <p class="section__lead">
+        Logisim Evolution distribuye instaladores nativos para Windows, macOS y Linux, además de un
+        JAR portable para sistemas con Java preinstalado.
+      </p>
+
+      <div class="downloads">
+        <h3>Tabla de descargas por plataforma</h3>
+        <div class="downloads-table">
+          {platformDownloads.map(d => (
+            <div class="downloads-row">
+              <div class="downloads-row__os">{d.os}</div>
+              <div class="downloads-row__file">
+                <code>{d.file}</code>
+              </div>
+              <div class="downloads-row__note">{d.note}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="steps">
+        {installSteps.map((s, i) => (
+          <div class="step">
+            <div class="step__num">{String(i + 1).padStart(2, '0')}</div>
+            <div class="step__body">
+              <h3 class="step__title">{s.title}</h3>
+              <p class="step__desc">{s.desc}</p>
+              <div class="step__media">
+                {s.img ? (
+                  <img src={s.img} alt={s.title} class="gallery__img" />
+                ) : (
+                  <ImgPlaceholder label={`IMG - paso ${i + 1}`} sublabel={s.title} ratio="16/9" />
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="install-cta">
+        <h3>¿Listo para empezar?</h3>
+        <p>Descarga la última versión estable desde GitHub Releases.</p>
+        <div class="install-cta__actions">
+          <Button href="https://github.com/logisim-evolution/logisim-evolution/releases" text="Ir a Releases" variant="primary" />
+          <Button href="https://github.com/logisim-evolution/logisim-evolution" text="Ver código fuente" variant="outline" />
+        </div>
+      </div>
+    </div>
+  </section><section class="section section--alt reqs-section">
+    <div class="container">
+      <span class="section__eyebrow">05 · Requisitos del Sistema</span>
+      <h2 class="section__title">Lo que necesitas en tu equipo.</h2>
+      <p class="section__lead">
+        Logisim Evolution es muy ligero. El requisito crítico es tener Java 21+ instalado;
+        el resto es modestia pura.
+      </p>
+
+      <div class="reqs-grid">
+        <div class="reqs-table">
+          <h3>Requisitos técnicos</h3>
+          <dl class="reqs-list">
+            {requirements.map(r => (
+              <div class="reqs-list__row">
+                <dt>{r.name}</dt>
+                <dd>{r.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+        <div class="reqs-license">
+          <h3>Licenciamiento</h3>
+          <div class="license-card">
+            <div class="license-card__badge">GPL v3</div>
+            <h4>Open source libre</h4>
+            <p>
+              Logisim Evolution se distribuye bajo la licencia <strong>GNU GPL v3</strong>.
+              Esto significa que es completamente gratuito, puedes usarlo con cualquier propósito,
+              estudiar su código, modificarlo y redistribuir tus modificaciones.
+            </p>
+            <ul class="license-list">
+              <li>✓ Uso comercial permitido</li>
+              <li>✓ Modificación permitida</li>
+              <li>✓ Redistribución permitida</li>
+              <li>✓ Uso académico sin restricciones</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><section class="section manual-section">
+    <div class="container">
+      <span class="section__eyebrow">06 · Manual de Funcionamiento</span>
+      <h2 class="section__title">Tu primer circuito en 7 pasos.</h2>
+      <p class="section__lead">
+        Sigue esta galería visual para construir tu primer circuito AND desde cero.
+        Cada imagen muestra un paso del proceso.
+      </p>
+
+      <div class="gallery">
+        {galleryImages.map((img, i) => (
+          <figure class="gallery__item">
+            {img.src ? (
+              <img src={img.src} alt={img.caption} class="gallery__img" />
+            ) : (
+              <ImgPlaceholder label={img.label} sublabel={img.caption} ratio={img.ratio} />
+            )}
+            <figcaption class="gallery__cap">{img.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+
+      <div class="manual-tips">
+        <h3>Tips para empezar rápido</h3>
+        <div class="tips-grid">
+          <div class="tip-card">
+            <span class="tip-card__icon">🖱️</span>
+            <strong>Click izquierdo</strong> selecciona, <strong>derecho</strong> abre menú contextual.
+          </div>
+          <div class="tip-card">
+            <span class="tip-card__icon">⌨️</span>
+            <strong>Ctrl+Z</strong> para deshacer, <strong>Ctrl+Y</strong> para rehacer.
+          </div>
+          <div class="tip-card">
+            <span class="tip-card__icon">🔍</span>
+            <strong>Scroll</strong> para zoom, <strong>Ctrl+0</strong> para ajustar al canvas.
+          </div>
+          <div class="tip-card">
+            <span class="tip-card__icon">📦</span>
+            <strong>Project → Load Library</strong> para añadir componentes personalizados.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.hero { position: relative; padding-block: var(--space-9) var(--space-7); overflow: hidden; }
+.hero__bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.hero__blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; }
+.hero__blob--1 { width: 400px; height: 400px; background: radial-gradient(circle, #fff0d4 0%, transparent 70%); top: -100px; left: -100px; }
+.hero__blob--2 { width: 300px; height: 300px; background: radial-gradient(circle, #d4ffe4 0%, transparent 70%); bottom: -50px; right: 10%; }
+.hero__inner { position: relative; z-index: 1; text-align: center; max-width: 900px; }
+.hero__eyebrow {
+  display: inline-block; padding: 0.4rem 1rem;
+  background: var(--color-accent-soft); color: var(--color-accent);
+  border-radius: var(--radius-pill); font-size: var(--fs-sm); font-weight: 600;
+  margin-bottom: var(--space-4);
+}
+.hero__title { margin-bottom: var(--space-5); font-style: italic; font-weight: 500; }
+.hero__subtitle { font-size: var(--fs-xl); max-width: 680px; margin: 0 auto var(--space-6); line-height: 1.5; }
+.hero__actions { display: flex; gap: var(--space-3); justify-content: center; flex-wrap: wrap; }
+.hero__img {
+  width: 100%;
+  max-height: 520px;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-accent-soft);
+  box-shadow: var(--shadow-card);
+}
+.gallery__img {
+  width: 100%;
+  height: auto;
+  max-height: 360px;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-accent-soft);
+  padding: var(--space-3);
+}
+
+.section__eyebrow {
+  display: inline-block; padding: 0.3rem 0.9rem;
+  background: var(--color-accent-soft); color: var(--color-accent);
+  border-radius: var(--radius-pill); font-size: var(--fs-xs); font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: var(--space-4);
+}
+.section__title { margin-bottom: var(--space-5); font-style: italic; font-weight: 500; }
+.section__lead { font-size: var(--fs-lg); line-height: 1.6; margin-bottom: var(--space-7); max-width: 700px; }
+.purple__eyebrow {
+  display: inline-block; padding: 0.3rem 0.9rem;
+  background: rgba(255,255,255,0.15); color: white;
+  border-radius: var(--radius-pill); font-size: var(--fs-xs); font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: var(--space-4);
+}
+
+.intro-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--space-7); align-items: center; }
+.intro-lead { font-size: var(--fs-lg); line-height: 1.7; margin-bottom: var(--space-5); color: var(--color-text); }
+.intro-text { line-height: 1.7; margin-bottom: var(--space-5); }
+.intro-canva {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-accent-soft);
+  padding: var(--space-3);
+  box-shadow: var(--shadow-soft);
+}
+.intro-callout {
+  display: flex; gap: var(--space-4);
+  padding: var(--space-5); background: var(--color-accent-soft);
+  border-left: 4px solid var(--color-accent); border-radius: var(--radius-md);
+  font-size: var(--fs-sm); line-height: 1.6;
+}
+.intro-callout__icon { font-size: 28px; flex-shrink: 0; }
+
+.pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+.pros-card { padding: var(--space-6); background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-border); }
+.pros-card--cons { background: linear-gradient(180deg, #fff7f3 0%, #fff 100%); border-color: #ffe0d0; }
+.pros-card__head { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-5); }
+.pros-card__head h3 { font-size: var(--fs-xl); font-style: italic; font-weight: 500; margin: 0; }
+.pros-card__icon {
+  display: grid; place-items: center; width: 40px; height: 40px;
+  border-radius: var(--radius-pill); font-weight: 700;
+}
+.pros-card__icon--pros { background: var(--color-success); color: white; }
+.pros-card__icon--cons { background: var(--color-warning); color: white; }
+.pros-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-4); }
+.pros-list li { display: flex; gap: var(--space-3); align-items: flex-start; }
+.pros-list__icon {
+  flex-shrink: 0; font-size: 22px;
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
+  background: var(--color-accent-soft); border-radius: var(--radius-sm);
+}
+.pros-list strong { display: block; margin-bottom: var(--space-1); }
+.pros-list p { font-size: var(--fs-sm); margin: 0; }
+
+.downloads { margin-bottom: var(--space-7); }
+.downloads h3 { font-size: var(--fs-xl); margin-bottom: var(--space-4); font-style: italic; font-weight: 500; }
+.downloads-table { border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; background: white; }
+.downloads-row {
+  display: grid; grid-template-columns: 1fr 1.5fr 1fr;
+  gap: var(--space-4); padding: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--fs-sm); align-items: center;
+}
+.downloads-row:last-child { border-bottom: none; }
+.downloads-row__os { font-weight: 600; color: var(--color-text); }
+.downloads-row__file code { font-size: var(--fs-xs); }
+.downloads-row__note { color: var(--color-text-muted); }
+
+.steps { display: flex; flex-direction: column; gap: var(--space-7); margin-top: var(--space-7); }
+.step { display: grid; grid-template-columns: 80px 1fr; gap: var(--space-5); padding-bottom: var(--space-7); border-bottom: 1px solid var(--color-border); }
+.step:last-child { border-bottom: none; }
+.step__num { font-family: var(--font-display); font-size: var(--fs-4xl); font-style: italic; font-weight: 500; color: var(--color-accent); line-height: 1; }
+.step__title { margin-bottom: var(--space-2); font-weight: 600; font-size: var(--fs-xl); }
+.step__desc { line-height: 1.6; margin-bottom: var(--space-4); }
+.step__media { max-width: 600px; }
+
+.install-cta {
+  margin-top: var(--space-8); padding: var(--space-6);
+  background: white; border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  text-align: center;
+}
+.install-cta h3 { margin-bottom: var(--space-2); }
+.install-cta p { margin-bottom: var(--space-5); }
+.install-cta__actions { display: flex; gap: var(--space-3); justify-content: center; flex-wrap: wrap; }
+
+.reqs-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--space-6); }
+.reqs-table h3, .reqs-license h3 { font-size: var(--fs-xl); margin-bottom: var(--space-4); font-style: italic; font-weight: 500; }
+.reqs-list { display: flex; flex-direction: column; gap: 0; }
+.reqs-list__row { display: grid; grid-template-columns: 200px 1fr; gap: var(--space-4); padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); }
+.reqs-list__row:last-child { border-bottom: none; }
+.reqs-list__row dt { font-weight: 600; color: var(--color-text); }
+.reqs-list__row dd { margin: 0; color: var(--color-text-muted); }
+.license-card { padding: var(--space-6); background: var(--color-accent-deep); color: white; border-radius: var(--radius-xl); }
+.license-card h4 { color: white; font-size: var(--fs-xl); margin-bottom: var(--space-3); }
+.license-card p { color: rgba(255,255,255,0.85); margin-bottom: var(--space-4); line-height: 1.6; }
+.license-card__badge {
+  display: inline-block; padding: 0.3rem 0.9rem;
+  background: white; color: var(--color-accent-deep);
+  border-radius: var(--radius-pill); font-size: var(--fs-xs); font-weight: 700;
+  letter-spacing: 0.08em; margin-bottom: var(--space-4);
+}
+.license-list { list-style: none; padding: 0; margin: 0; font-size: var(--fs-sm); }
+.license-list li { padding: var(--space-2) 0; color: rgba(255,255,255,0.85); }
+
+.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-5); margin-top: var(--space-5); }
+.gallery__item { margin: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.gallery__cap { font-size: var(--fs-sm); color: var(--color-text-muted); text-align: center; }
+
+.manual-tips { margin-top: var(--space-8); padding: var(--space-6); background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-border); }
+.manual-tips h3 { margin-bottom: var(--space-4); font-style: italic; font-weight: 500; }
+.tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); }
+.tip-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: flex-start;
+  padding: var(--space-4);
+  background: var(--color-accent-soft);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+.tip-card__icon {
+  font-size: 22px;
+  line-height: 1;
+}
+.tip-card strong {
+  display: inline;
+  margin-right: 4px;
+}
+
+.videos-section { position: relative; overflow: hidden; }
+.videos-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+.videos-title { color: white; font-style: italic; font-weight: 500; margin-bottom: var(--space-4); }
+.videos-desc { color: rgba(255,255,255,0.85); font-size: var(--fs-lg); margin-bottom: var(--space-7); max-width: 700px; }
+.videos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-5); position: relative; }
+.video-card { position: relative; cursor: pointer; }
+.video-card__media { position: relative; }
+.video-card__play {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px; height: 60px;
+  background: white; color: var(--color-accent-deep);
+  border-radius: var(--radius-pill);
+  display: grid; place-items: center;
+  font-size: 24px; font-weight: 700;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  transition: transform var(--t-fast);
+}
+.video-card:hover .video-card__play { transform: translate(-50%, -50%) scale(1.1); }
+.video-card__title { color: white; margin-top: var(--space-3); font-weight: 500; }
+
+@media (max-width: 768px) {
+  .intro-grid, .pros-cons, .reqs-grid { grid-template-columns: 1fr; gap: var(--space-5); }
+  .reqs-list__row { grid-template-columns: 1fr; gap: var(--space-1); }
+  .step { grid-template-columns: 60px 1fr; gap: var(--space-3); }
+  .downloads-row { grid-template-columns: 1fr; gap: var(--space-1); }
+}
+</style>

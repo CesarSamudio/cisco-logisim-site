@@ -1,0 +1,72 @@
+/* Design Tokens — Fly.io inspired, adapted for educational software research */
+:root {
+  /* Colors */
+  --color-bg: #f9f9fb;
+  --color-bg-alt: #ffffff;
+  --color-bg-soft: #f0ebff;
+  --color-text: #2d3748;
+  --color-text-muted: #4a5568;
+  --color-text-soft: #718096;
+  --color-accent: #7c5dfa;
+  --color-accent-hover: #6948e8;
+  --color-accent-deep: #6332f6;
+  --color-accent-soft: #f0ebff;
+  --color-border: #e8e3f5;
+  --color-border-strong: #d6cce8;
+  --color-dark: #110f2e;
+  --color-dark-text: #a0a8c0;
+  --color-success: #6abf4b;
+  --color-warning: #ff8a4c;
+  --color-error: #e53e3e;
+
+  /* Typography */
+  --font-display: 'Fraunces', 'GT Super', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+
+  /* Type scale */
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.25rem;
+  --fs-2xl: 1.5rem;
+  --fs-3xl: 2rem;
+  --fs-4xl: 2.75rem;
+  --fs-5xl: 3.75rem;
+  --fs-hero: clamp(2.5rem, 5vw + 1rem, 5rem);
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-soft: 0 2px 12px rgba(124, 93, 250, 0.08);
+  --shadow-card: 0 4px 20px rgba(124, 93, 250, 0.10);
+  --shadow-elev: 0 12px 36px rgba(124, 93, 250, 0.18);
+
+  /* Layout */
+  --container-max: 1200px;
+  --container-narrow: 800px;
+  --nav-height: 72px;
+
+  /* Transitions */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --t-fast: 150ms var(--ease);
+  --t-base: 250ms var(--ease);
+}

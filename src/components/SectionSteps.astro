@@ -1,0 +1,69 @@
+---
+const { eyebrow, title, steps: items = [] } = Astro.props;
+---
+<section class="section steps-section">
+  <div class="container container-narrow">
+    {eyebrow && <span class="section__eyebrow">{eyebrow}</span>}
+    {title && <h2 class="section__title">{title}</h2>}
+    <div class="steps">
+      {items.map((s, i) => (
+        <div class="step">
+          <div class="step__num">{String(i + 1).padStart(2, '0')}</div>
+          <div class="step__body">
+            <h3 class="step__title">{s.title}</h3>
+            <p class="step__desc">{s.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.section__eyebrow {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+}
+.section__title {
+  margin-bottom: var(--space-7);
+  font-style: italic;
+  font-weight: 500;
+}
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+.step {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: var(--space-5);
+  align-items: flex-start;
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+.step:last-child { border-bottom: none; padding-bottom: 0; }
+.step__num {
+  font-family: var(--font-display);
+  font-size: var(--fs-4xl);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--color-accent);
+  line-height: 1;
+}
+.step__title {
+  margin-bottom: var(--space-2);
+  font-weight: 600;
+}
+.step__desc {
+  line-height: 1.6;
+}
+</style>

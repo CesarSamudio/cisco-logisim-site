@@ -1,0 +1,111 @@
+---
+const { eyebrow, title, description, checklist = [], ctaPrimary, ctaSecondary } = Astro.props;
+---
+<section class="section ent-section">
+  <div class="container">
+    <div class="ent-grid">
+      <div class="ent-checklist">
+        {checklist.map(item => (
+          <div class="ent-item">
+            <div class="ent-item__check">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <div>
+              <h4 class="ent-item__title">{item.title}</h4>
+              <p class="ent-item__desc">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="ent-content">
+        {eyebrow && <span class="section__eyebrow">{eyebrow}</span>}
+        <h2 class="ent-title">{title}</h2>
+        <p class="ent-desc">{description}</p>
+        <div class="ent-actions">
+          {ctaPrimary && (
+            <a href={ctaPrimary.href} class="btn btn--primary btn--md">
+              <span>{ctaPrimary.text}</span>
+              <span class="btn__arrow">→</span>
+            </a>
+          )}
+          {ctaSecondary && (
+            <a href={ctaSecondary.href} class="btn btn--outline btn--md">
+              <span>{ctaSecondary.text} →</span>
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.section__eyebrow {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+}
+.ent-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+.ent-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+.ent-item {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+.ent-item__check {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 36px; height: 36px;
+  background: var(--color-success);
+  color: white;
+  border-radius: var(--radius-pill);
+}
+.ent-item__title {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  margin-bottom: var(--space-1);
+}
+.ent-item__desc {
+  font-size: var(--fs-sm);
+}
+.ent-title {
+  font-style: italic;
+  font-weight: 500;
+  margin-bottom: var(--space-4);
+}
+.ent-desc {
+  font-size: var(--fs-lg);
+  line-height: 1.6;
+  margin-bottom: var(--space-6);
+}
+.ent-actions {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .ent-grid { grid-template-columns: 1fr; gap: var(--space-6); }
+}
+</style>

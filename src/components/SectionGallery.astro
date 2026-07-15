@@ -1,0 +1,102 @@
+---
+const { eyebrow, title, description, images = [] } = Astro.props;
+---
+<section class="section gallery-section">
+  <div class="container">
+    <div class="gallery-header">
+      {eyebrow && <span class="section__eyebrow">{eyebrow}</span>}
+      {title && <h2 class="section__title">{title}</h2>}
+      {description && <p class="gallery-desc">{description}</p>}
+    </div>
+    <div class="gallery">
+      {images.map((img, i) => (
+        <figure class="gallery__item" style={`aspect-ratio: ${img.ratio || '4/3'};`}>
+          <div class="img-ph gallery__ph">
+            <div class="img-ph__inner">
+              <svg class="img-ph__icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="9" cy="9" r="2"/>
+                <path d="m21 15-5-5L5 21"/>
+              </svg>
+              <span class="img-ph__label">{img.label || `IMG ${i + 1}`}</span>
+              {img.caption && <span class="img-ph__sub">{img.caption}</span>}
+            </div>
+          </div>
+          {img.caption && <figcaption class="gallery__cap">{img.caption}</figcaption>}
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.gallery-header {
+  margin-bottom: var(--space-7);
+  max-width: 700px;
+}
+.section__eyebrow {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+}
+.section__title {
+  margin-bottom: var(--space-4);
+  font-style: italic;
+  font-weight: 500;
+}
+.gallery-desc {
+  font-size: var(--fs-lg);
+  line-height: 1.5;
+}
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-5);
+}
+.gallery__item {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.gallery__ph {
+  border: 2px dashed var(--color-accent);
+  background: var(--color-accent-soft);
+  background-image:
+    linear-gradient(135deg, rgba(124, 93, 250, 0.04) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(124, 93, 250, 0.04) 25%, transparent 25%);
+  background-size: 24px 24px;
+  border-radius: var(--radius-lg);
+  display: grid;
+  place-items: center;
+  color: var(--color-accent);
+  transition: all var(--t-fast);
+}
+.gallery__ph:hover {
+  background-color: rgba(124, 93, 250, 0.12);
+}
+.gallery__ph .img-ph__inner {
+  display: flex; flex-direction: column;
+  align-items: center; gap: var(--space-2);
+  text-align: center; padding: var(--space-4);
+}
+.gallery__ph .img-ph__icon { opacity: 0.7; }
+.gallery__ph .img-ph__label {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg); font-weight: 600;
+  font-style: italic;
+}
+.gallery__ph .img-ph__sub { font-size: var(--fs-sm); opacity: 0.7; }
+.gallery__cap {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+</style>

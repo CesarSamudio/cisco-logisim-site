@@ -1,0 +1,75 @@
+---
+const { eyebrow, title, items = [] } = Astro.props;
+---
+<section class="section feat-grid-section">
+  <div class="container">
+    {eyebrow && <span class="section__eyebrow">{eyebrow}</span>}
+    {title && <h2 class="section__title">{title}</h2>}
+    <div class="feat-grid">
+      {items.map(item => (
+        <article class="feat-card">
+          <div class="feat-card__icon">{item.icon || '✦'}</div>
+          <h3 class="feat-card__title">{item.title}</h3>
+          <p class="feat-card__desc">{item.desc}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.section__eyebrow {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+}
+.section__title {
+  margin-bottom: var(--space-7);
+  font-style: italic;
+  font-weight: 500;
+  max-width: 700px;
+}
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-5);
+}
+.feat-card {
+  padding: var(--space-6);
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: all var(--t-base);
+}
+.feat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+  border-color: var(--color-accent);
+}
+.feat-card__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 48px; height: 48px;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  border-radius: var(--radius-md);
+  font-size: 22px;
+  margin-bottom: var(--space-4);
+}
+.feat-card__title {
+  font-size: var(--fs-lg);
+  margin-bottom: var(--space-2);
+  font-weight: 600;
+}
+.feat-card__desc {
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+}
+</style>

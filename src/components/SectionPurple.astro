@@ -1,0 +1,67 @@
+---
+const { eyebrow, title, description } = Astro.props;
+---
+<section class="section section--purple purple-section">
+  <div class="container">
+    <div class="purple-grid">
+      <div class="purple-content">
+        {eyebrow && <span class="purple__eyebrow">{eyebrow}</span>}
+        {title && <h2 class="purple-title">{title}</h2>}
+        {description && <p class="purple-desc">{description}</p>}
+        <slot />
+      </div>
+      <div class="purple-visual">
+        <slot name="visual" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.purple-section {
+  position: relative;
+  overflow: hidden;
+}
+.purple-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+.purple-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-7);
+  align-items: center;
+  position: relative;
+}
+.purple__eyebrow {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+}
+.purple-title {
+  font-style: italic;
+  font-weight: 500;
+  margin-bottom: var(--space-4);
+}
+.purple-desc {
+  font-size: var(--fs-lg);
+  line-height: 1.6;
+  margin-bottom: var(--space-5);
+}
+
+@media (max-width: 768px) {
+  .purple-grid { grid-template-columns: 1fr; gap: var(--space-5); }
+}
+</style>

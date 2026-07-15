@@ -1,0 +1,325 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import ImgPlaceholder from '../components/ImgPlaceholder.astro';
+import Team from '../components/Team.astro';
+
+const apps = [
+  {
+    id: 'cisco-it',
+    name: 'Cisco IT Essentials Virtual Desktop',
+    tagline: 'Simulador de ensamblaje de PC',
+    desc: 'Aplicación basada en Adobe Flash (ActionScript) que acompaña el curso IT Essentials de Cisco Networking Academy. Permite practicar ensamblaje y configuración de hardware sin riesgo.',
+    href: '/cisco-it',
+    icon: '🖥️',
+    accent: '#7c5dfa',
+  },
+  {
+    id: 'logisim',
+    name: 'Logisim Evolution',
+    tagline: 'Simulador de circuitos lógicos digitales',
+    desc: 'Herramienta educativa open source en Java para diseñar, simular y analizar circuitos digitales. Usada en universidades de todo el mundo para enseñar lógica booleana.',
+    href: '/logisim',
+    icon: '⚡',
+    accent: '#6332f6',
+  },
+];
+---
+<BaseLayout
+  title="Cisco IT · Logisim — Investigación"
+  description="Sitio educativo de investigación sobre Cisco IT Essentials Virtual Desktop y Logisim Evolution."
+  current="home"
+>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__bg" aria-hidden="true">
+      <div class="hero__blob hero__blob--1"></div>
+      <div class="hero__blob hero__blob--2"></div>
+      <div class="hero__blob hero__blob--3"></div>
+    </div>
+    <div class="container hero__inner">
+      <span class="hero__eyebrow">Investigación · Herramientas educativas</span>
+      <h1 class="hero__title">Dos herramientas,<br/>una investigación.</h1>
+      <p class="hero__subtitle">
+        Análisis profundo de <strong>Cisco IT Essentials Virtual Desktop</strong> y
+        <strong>Logisim Evolution</strong>, dos herramientas para aprender sobre hardware y circuitos digitales.
+      </p>
+      <div class="hero__actions">
+        <Button href="#apps" text="Ver aplicaciones" variant="primary" size="lg" />
+        <Button href="/cisco-it" text="Cisco IT" variant="outline" size="lg" />
+        <Button href="/logisim" text="Logisim" variant="outline" size="lg" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Apps Grid -->
+  <section id="apps" class="section apps-section">
+    <div class="container">
+      <span class="section__eyebrow">Aplicaciones asignadas</span>
+      <h2 class="section__title">Las dos herramientas a investigar</h2>
+      <div class="apps-grid">
+        {apps.map(app => (
+          <article class="app-card" style={`--card-accent: ${app.accent};`}>
+            <div class="app-card__icon">{app.icon}</div>
+            <span class="app-card__tag">{app.tagline}</span>
+            <h3 class="app-card__name">{app.name}</h3>
+            <p class="app-card__desc">{app.desc}</p>
+            {app.id === 'cisco-it' ? (
+              <img src="/images/index/cisco-captura.jpg" alt="Captura del simulador Cisco IT Essentials Virtual Desktop" class="app-card__img" />
+            ) : (
+              <img src="/images/index/logisim-captura.jpg" alt="Logo oficial de Logisim Evolution" class="app-card__img" />
+            )}
+            <a href={app.href} class="app-card__link">
+              Ver investigación completa
+              <span>→</span>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Formulario -->
+  <section id="formulario" class="section forms-section">
+    <div class="container">
+      <span class="section__eyebrow">Encuesta</span>
+      <h2 class="section__title">Formulario sobre las aplicaciones</h2>
+      <p class="forms-lead">
+        Lea toda la página antes de responder.
+      </p>
+
+      <figure class="forms-qr">
+        <img
+          src="/images/forms/qr-cuestionario.png"
+          alt="Código QR del formulario de Google sobre Cisco IT y Logisim"
+          class="forms-qr__img"
+        />
+        <figcaption class="forms-qr__cap">
+          Escaneá con tu celular para abrir el cuestionario
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Steps -->
+  <section class="section steps-section">
+    <div class="container container-narrow">
+      <span class="section__eyebrow">Cómo navegar</span>
+      <h2 class="section__title">Tres pasos para explorar.</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step__num">01</div>
+          <div class="step__body">
+            <h3 class="step__title">Elige una aplicación</h3>
+            <p class="step__desc">Comienza por Cisco IT o Logisim desde la sección superior. Cada app tiene su propia página de investigación completa.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num">02</div>
+          <div class="step__body">
+            <h3 class="step__title">Revisa los siete criterios</h3>
+            <p class="step__desc">Propósito, ventajas, instalación, requisitos, manual y videos están organizados en secciones claras con navegación intuitiva.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num">03</div>
+          <div class="step__body">
+            <h3 class="step__title">Compara y concluye</h3>
+            <p class="step__desc">Ambas herramientas apuntan a la educación técnica. Encuentra sus diferencias, similitudes y limitaciones documentadas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </BaseLayout>
+
+<style>
+.hero {
+  position: relative;
+  padding-block: var(--space-9) var(--space-8);
+  overflow: hidden;
+}
+.hero__bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.hero__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+}
+.hero__blob--1 { width: 400px; height: 400px; background: radial-gradient(circle, #f9d4ff 0%, transparent 70%); top: -100px; left: -100px; }
+.hero__blob--2 { width: 300px; height: 300px; background: radial-gradient(circle, #d4e4ff 0%, transparent 70%); bottom: -50px; right: 10%; }
+.hero__blob--3 { width: 250px; height: 250px; background: radial-gradient(circle, #fff0d4 0%, transparent 70%); top: 30%; right: -50px; }
+.hero__inner {
+  position: relative; z-index: 1;
+  text-align: center; max-width: 900px;
+}
+.hero__eyebrow {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+}
+.hero__title { margin-bottom: var(--space-5); font-style: italic; font-weight: 500; }
+.hero__subtitle {
+  font-size: var(--fs-xl);
+  max-width: 680px;
+  margin: 0 auto var(--space-6);
+  line-height: 1.5;
+}
+.hero__subtitle strong { color: var(--color-accent); font-weight: 600; }
+.hero__actions {
+  display: flex; gap: var(--space-3);
+  justify-content: center; flex-wrap: wrap;
+}
+
+.section__eyebrow {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+}
+.section__title {
+  margin-bottom: var(--space-7);
+  font-style: italic;
+  font-weight: 500;
+  max-width: 800px;
+}
+.purple__eyebrow {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+}
+
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: var(--space-6);
+}
+.app-card {
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  transition: all var(--t-base);
+}
+.app-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card);
+  border-color: var(--card-accent);
+}
+.app-card__icon {
+  font-size: 36px;
+  display: inline-grid;
+  place-items: center;
+  width: 56px; height: 56px;
+  background: var(--color-accent-soft);
+  border-radius: var(--radius-md);
+}
+.app-card__tag {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--card-accent);
+}
+.app-card__name {
+  font-size: var(--fs-2xl);
+  margin: 0;
+  font-style: italic;
+  font-weight: 500;
+}
+.app-card__desc { font-size: var(--fs-sm); line-height: 1.6; }
+.app-card__img {
+  width: 100%;
+  max-height: 220px;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-accent-soft);
+  padding: var(--space-2);
+}
+.app-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  font-weight: 600;
+  color: var(--card-accent);
+}
+.app-card__link span { transition: transform var(--t-fast); }
+.app-card__link:hover span { transform: translateX(4px); }
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.forms-section {
+  background: var(--color-bg-soft, #faf9fb);
+  text-align: center;
+}
+.forms-section .section__title {
+  margin-inline: auto;
+}
+.forms-lead {
+  font-size: var(--fs-lg);
+  line-height: 1.6;
+  color: var(--color-text-muted, #5a5560);
+  max-width: 600px;
+  margin: 0 auto var(--space-7);
+}
+.forms-qr {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0 auto;
+}
+.forms-qr__img {
+  width: 320px;
+  height: 320px;
+  object-fit: contain;
+  background: white;
+  padding: var(--space-3);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+}
+.forms-qr__cap {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted, #5a5560);
+}
+
+@media (max-width: 480px) {
+  .forms-qr__img {
+    width: 240px;
+    height: 240px;
+  }
+  .forms-section {
+    padding-block: var(--space-7);
+  }
+}
+</style>

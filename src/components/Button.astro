@@ -1,0 +1,116 @@
+---
+const {
+  variant = 'primary',
+  href,
+  text,
+  size = 'md',
+} = Astro.props;
+const Tag = href ? 'a' : 'button';
+---
+<Tag
+  href={href}
+  class:list={['btn', `btn--${variant}`, `btn--${size}`]}
+>
+  <span class="btn__text">{text}<slot /></span>
+  {variant === 'primary' && <span class="btn__arrow">→</span>}
+</Tag>
+
+<style>
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  transition: all var(--t-fast);
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: var(--fs-base);
+  position: relative;
+  isolation: isolate;
+}
+.btn--sm { padding: 0.45rem 1rem; font-size: var(--fs-sm); }
+.btn--md { padding: 0.7rem 1.5rem; }
+.btn--lg { padding: 0.9rem 2rem; font-size: var(--fs-lg); }
+
+/* PRIMARY — Glassmorfismo morado */
+.btn--primary {
+  background: linear-gradient(135deg, rgba(124, 93, 250, 0.85) 0%, rgba(99, 50, 246, 0.85) 100%);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  box-shadow:
+    0 4px 16px rgba(124, 93, 250, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+.btn--primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.25) 50%, transparent 70%);
+  opacity: 0;
+  transition: opacity var(--t-base);
+  pointer-events: none;
+  z-index: -1;
+}
+.btn--primary:hover {
+  background: linear-gradient(135deg, rgba(124, 93, 250, 0.95) 0%, rgba(99, 50, 246, 0.95) 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 28px rgba(124, 93, 250, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+.btn--primary:hover::before {
+  opacity: 1;
+  animation: shine 1.2s var(--ease);
+}
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* OUTLINE — Glass sutil transparente */
+.btn--outline {
+  background: rgba(255, 255, 255, 0.4);
+  color: var(--color-accent);
+  border: 1.5px solid var(--color-accent);
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  box-shadow: 0 2px 8px rgba(124, 93, 250, 0.08);
+}
+.btn--outline:hover {
+  background: rgba(255, 255, 255, 0.7);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(124, 93, 250, 0.18);
+}
+
+/* GHOST — Glass blanco puro */
+.btn--ghost {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+}
+.btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: white;
+}
+
+.btn__arrow {
+  transition: transform var(--t-fast);
+}
+.btn:hover .btn__arrow {
+  transform: translateX(4px);
+}
+</style>

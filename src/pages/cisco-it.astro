@@ -1,0 +1,479 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import ImgPlaceholder from '../components/ImgPlaceholder.astro';
+import YouTubeEmbed from '../components/YouTubeEmbed.astro';
+
+const features = [
+  { icon: '🎓', title: 'Uso educativo', desc: 'Diseñado para acompañar el currículo oficial de IT Essentials de Cisco Networking Academy.' },
+  { icon: '🛡️', title: 'Sin riesgo de daño', desc: 'Permite practicar ensamblaje de componentes sin riesgo de dañar hardware real costoso.' },
+  { icon: '🌐', title: 'Multiplataforma', desc: 'Corre en cualquier navegador moderno con soporte WebAssembly a través del emulador Ruffle.' },
+  { icon: '🆓', title: 'Gratuito', desc: 'Sin licencias, sin suscripciones, sin costo para los estudiantes de los Cisco Academies.' },
+];
+
+const pros = [
+  { icon: '💰', title: 'Costo cero', desc: 'Totalmente gratuito para estudiantes inscritos en Cisco Academy.' },
+  { icon: '🔁', title: 'Práctica ilimitada', desc: 'Repite los procedimientos cuantas veces necesites sin gastar componentes reales.' },
+  { icon: '📖', title: 'Integrado con el curso', desc: 'Los laboratorios están alineados con el currículo oficial de IT Essentials v7.' },
+];
+
+const cons = [
+  { icon: '⚠️', title: 'Depende de Adobe Flash', desc: 'La aplicación original fue construida en ActionScript/Flash, tecnología descontinuada desde 2020. Solo funciona mediante el emulador Ruffle.' },
+  { icon: '🔧', title: 'No firmada en algunos OS', desc: 'En macOS requiere abrir desde Preferencias del Sistema la primera vez. Algunas versiones pueden disparar alertas de seguridad.' },
+];
+
+const steps = [
+  { title: 'Descarga desde Internet Archive', desc: 'Cisco IT Essentials Virtual Desktop NO está disponible oficialmente en NetAcad. La única fuente oficial preservada es Internet Archive: https://archive.org/details/laptop_202008. Descarga el archivo ZIP completo (incluye Laptop y PC Desktop, versión de agosto 2020).', img: '/images/cisco/inst-01-descarga.jpg' },
+  { title: 'Extracción del archivo', desc: 'Descomprime el ZIP en una carpeta local con ruta corta, por ejemplo C:\\CiscoIT\\. Esto evita problemas con permisos de Windows y rutas largas.', img: '/images/cisco/inst-02-extraccion.jpg' },
+  { title: 'Primera ejecución con Ruffle', desc: 'Si tu navegador no soporta Flash, instala Ruffle (https://ruffle.rs), un emulador open source en Rust. Ruffle detecta automáticamente los archivos .swf y los ejecuta en WebAssembly sin necesidad de plugins.', img: '/images/cisco/inst-04-primer-launch.jpg' },
+];
+
+const galleryImages = [
+  { label: 'IMG - Pantalla de inicio', caption: 'Pantalla de inicio del simulador Virtual Desktop', ratio: '4/3', src: '/images/cisco/gal-pantalla-inicio.png' },
+  { label: 'IMG - Panel frontal del case', caption: 'Paso 1: retirar el panel frontal del case/gabinete', ratio: '4/3', src: '/images/cisco/gal-panel-case.png' },
+  { label: 'IMG - Motherboard', caption: 'Paso 2: selección de la motherboard', ratio: '4/3', src: '/images/cisco/gal-motherboard.png' },
+  { label: 'IMG - Tarjeta madre instalada', caption: 'Paso 3: instalación de la tarjeta madre en el case', ratio: '4/3', src: '/images/cisco/gal-tarjeta-madre.png' },
+  { label: 'IMG - Instalar CPU', caption: 'Paso 4: instalar el procesador (CPU)', ratio: '4/3', src: '/images/cisco/gal-cpu.png' },
+  { label: 'IMG - Aplicar pasta térmica', caption: 'Paso 5: aplicación de pasta térmica', ratio: '4/3', src: '/images/cisco/gal-pasta.png' },
+  { label: 'IMG - Instalar CPU fan', caption: 'Paso 6: colocar el ventilador del CPU (CPU fan)', ratio: '4/3', src: '/images/cisco/gal-cpu-fan.png' },
+  { label: 'IMG - Instalar disipador', caption: 'Paso 7: colocar el disipador sobre el CPU', ratio: '4/3', src: '/images/cisco/gal-disipador.png' },
+  { label: 'IMG - Instalar RAM', caption: 'Paso 8: insertar módulos de memoria RAM', ratio: '4/3', src: '/images/cisco/gal-ram.png' },
+  { label: 'IMG - Tarjeta NIC', caption: 'Paso 9: instalar la tarjeta de red (NIC)', ratio: '4/3', src: '/images/cisco/gal-nic-real.png' },
+  { label: 'IMG - Instalar disco duro', caption: 'Paso 10: instalar disco duro en bahía', ratio: '4/3', src: '/images/cisco/gal-disco.png' },
+  { label: 'IMG - Instalar fuente de poder', caption: 'Paso 11: instalar la fuente de poder (PSU)', ratio: '4/3', src: '/images/cisco/gal-fuente.png' },
+  { label: 'IMG - Conectar cables de fuente', caption: 'Paso 12: conectar los cables de la fuente a los componentes', ratio: '4/3', src: '/images/cisco/gal-cables-fuente.png' },
+  { label: 'IMG - Tarjeta de video', caption: 'Paso 13: instalar tarjeta gráfica (GPU)', ratio: '4/3', src: '/images/cisco/gal-gpu-real.png' },
+  { label: 'IMG - Ensamblaje completo', caption: 'Resultado final del ensamblaje', ratio: '4/3', src: '/images/cisco/gal-08-completo.jpg' },
+];
+
+const requirements = [
+  { name: 'Sistema operativo', value: 'Windows 10/11, macOS 11+, Linux con WebAssembly' },
+  { name: 'Navegador recomendado', value: 'Chrome 90+, Firefox 88+, Edge 90+, Safari 14+' },
+  { name: 'RAM mínima', value: '2 GB disponibles' },
+  { name: 'Espacio en disco', value: '~500 MB (incluye Ruffle si se descarga standalone)' },
+  { name: 'Conexión a internet', value: 'Solo para descarga inicial (uso offline después)' },
+  { name: 'Permisos', value: 'Usuario estándar (sin admin)' },
+];
+
+const videos = [
+  { label: 'VIDEO 1', sublabel: 'Ensamblaje completo paso a paso' },
+  { label: 'VIDEO 2', sublabel: 'Configuración de BIOS y arranque' },
+  { label: 'VIDEO 3', sublabel: 'Diagnóstico y solución de errores comunes' },
+];
+---
+<BaseLayout
+  title="Cisco IT Essentials Virtual Desktop — Investigación"
+  description="Investigación completa sobre Cisco IT Essentials Virtual Desktop: propósito, ventajas, instalación, requisitos y funcionamiento."
+  current="cisco-it"
+>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__bg" aria-hidden="true">
+      <div class="hero__blob hero__blob--1"></div>
+      <div class="hero__blob hero__blob--2"></div>
+    </div>
+    <div class="container hero__inner">
+      <span class="hero__eyebrow">Aplicación #1 · Simulador de hardware</span>
+      <h1 class="hero__title">Cisco IT Essentials<br/>Virtual Desktop.</h1>
+      <p class="hero__subtitle">
+        Simulador basado en Flash/ActionScript del curso IT Essentials de Cisco Networking Academy.
+        Permite practicar el ensamblaje de un PC y la configuración de componentes sin riesgo de dañar
+        hardware real.
+      </p>
+      <div class="hero__actions">
+        <Button href="#introduccion" text="Comenzar lectura" variant="primary" size="lg" />
+        <Button href="#videos" text="Ver videos" variant="outline" size="lg" />
+      </div>
+      <div style="max-width: 900px; margin: var(--space-7) auto 0;">
+              <img src="/images/cisco/gal-pantalla-inicio.png" alt="Pantalla de inicio del Cisco IT Essentials Virtual Desktop" class="hero__img" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 1. Introducción y Propósito -->
+  <section id="introduccion" class="section intro-section">
+    <div class="container">
+      <div class="intro-grid">
+        <div>
+          <span class="section__eyebrow">01 · Introducción y Propósito</span>
+          <h2 class="section__title">¿Qué es exactamente?</h2>
+          <p class="intro-lead">
+            <strong>Cisco IT Essentials Virtual Desktop</strong> es una aplicación interactiva que forma
+            parte del curso oficial <em>IT Essentials</em> de Cisco Networking Academy. Su función es
+            ofrecer a los estudiantes un entorno virtual donde practicar el ensamblaje, configuración y
+            diagnóstico de un equipo de cómputo sin necesidad de manipular hardware físico.
+          </p>
+          <p class="intro-text">
+            Construida originalmente en <strong>Adobe Flash / ActionScript</strong>, la aplicación permitía
+            arrastrar y soltar componentes (motherboard, CPU, RAM, disco, fuente) dentro de un chasis
+            virtual, completando los procedimientos aprendidos en clase. Tras la descontinuación de Flash
+            en 2020, el simulador se mantiene vigente gracias al emulador open source <strong>Ruffle</strong>,
+            escrito en Rust y compilado a WebAssembly.
+          </p>
+          <div class="intro-callout">
+            <div class="intro-callout__icon">💡</div>
+            <div>
+              <strong>¿Cuál es su funcionalidad?</strong> Replicar virtualmente las prácticas de laboratorio
+              del curso IT Essentials (v6.0 / v7.0): ensamblaje paso a paso de un PC, instalación de SO,
+              configuración de BIOS/UEFI y diagnóstico de fallas comunes.
+            </div>
+          </div>
+        </div>
+        <div>
+          <img src="/images/cisco/interfaz.jpg" alt="Interfaz del simulador Cisco IT mostrando la instalación de fuente de poder" class="intro-img" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Ventajas y Desventajas -->
+  <section id="videos" class="section section--purple videos-section">
+      <div class="container">
+        <span class="purple__eyebrow">02 · Videos demostrativos</span>
+        <h2 class="videos-title">Mira el simulador en acción.</h2>
+        <p class="videos-desc">
+          Videos de YouTube embebidos que se reproducen directamente aquí. Puedes ver tutoriales oficiales
+          y demostraciones del ensamblaje paso a paso del Cisco IT Essentials Virtual Desktop.
+        </p>
+
+        <div class="videos-grid">
+          <div class="video-card">
+            <YouTubeEmbed id="6DwEvZzAHYc" title="Ensamblaje virtual PC con Cisco IT Essentials Virtual Desktop" />
+            <p class="video-card__title">Ensamblaje virtual de PC paso a paso</p>
+          </div>
+          <div class="video-card">
+            <YouTubeEmbed id="02giRxs3DYM" title="Cisco IT Essentials Virtual Desktop" />
+            <p class="video-card__title">Demostración del simulador Cisco IT</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+  <section class="section install-section">
+    <div class="container container-narrow">
+      <span class="section__eyebrow">03 · Guía de Descarga e Instalación</span>
+      <h2 class="section__title">De descarga a primera ejecución,<br/>en cuatro pasos.</h2>
+      <p class="section__lead">
+        El proceso es seguro si obtienes los archivos desde fuentes oficiales.
+        Aquí tienes el procedimiento detallado.
+      </p>
+
+      <div class="steps">
+        {steps.map((s, i) => (
+          <div class="step">
+            <div class="step__num">{String(i + 1).padStart(2, '0')}</div>
+            <div class="step__body">
+              <h3 class="step__title">{s.title}</h3>
+              <p class="step__desc">{s.desc}</p>
+              <div class="step__media">
+                {s.img ? (
+                  <img src={s.img} alt={s.title} class="gallery__img" />
+                ) : (
+                  <ImgPlaceholder label={`IMG - paso ${i + 1}`} sublabel={s.title} ratio="16/9" />
+                )}
+        </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+            <div class="install-cta">
+        <h3>¿Listo para descargar?</h3>
+        <p>El Cisco IT Essentials Virtual Desktop ya no se distribuye oficialmente por NetAcad. La única copia preservada está en Internet Archive (versión de agosto 2020). Para ejecutarlo en navegadores modernos necesitas Ruffle como emulador de Flash.</p>
+        <div class="install-cta__actions">
+          <Button href="https://archive.org/details/laptop_202008" text="Descargar de Internet Archive" variant="primary" />
+          <Button href="https://ruffle.rs" text="Descargar Ruffle" variant="outline" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Requisitos del sistema y licenciamiento -->
+  <section class="section section--alt pros-section">
+    <div class="container">
+      <span class="section__eyebrow">04 · Ventajas y Limitaciones</span>
+      <h2 class="section__title">Lo bueno, lo malo y lo técnico.</h2>
+      <p class="section__lead">
+        Evaluamos la herramienta desde tres perspectivas: educativa, técnica y de usabilidad.
+      </p>
+
+      <div class="pros-cons">
+        <article class="pros-card">
+          <div class="pros-card__head">
+            <div class="pros-card__icon pros-card__icon--pros">✓</div>
+            <h3>Ventajas</h3>
+          </div>
+          <ul class="pros-list">
+            {pros.map(p => (
+              <li>
+                <span class="pros-list__icon">{p.icon}</span>
+                <div>
+                  <strong>{p.title}</strong>
+                  <p>{p.desc}</p>
+          </div>
+              </li>
+            ))}
+          </ul>
+        </article>
+
+        <article class="pros-card pros-card--cons">
+          <div class="pros-card__head">
+            <div class="pros-card__icon pros-card__icon--cons">!</div>
+            <h3>Limitaciones técnicas</h3>
+          </div>
+          <ul class="pros-list">
+            {cons.map(c => (
+              <li>
+                <span class="pros-list__icon">{c.icon}</span>
+                <div>
+                  <strong>{c.title}</strong>
+                  <p>{c.desc}</p>
+          </div>
+              </li>
+            ))}
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Guía de Descarga e Instalación -->
+  <section class="section section--alt reqs-section">
+    <div class="container">
+      <span class="section__eyebrow">05 · Requisitos del Sistema</span>
+      <h2 class="section__title">Lo que necesitas tener en tu máquina.</h2>
+      <p class="section__lead">
+        Requisitos modestos: la aplicación original en Flash era muy ligera, y Ruffle la ejecuta
+        de forma eficiente incluso en equipos modestos.
+      </p>
+
+      <div class="reqs-grid">
+        <div class="reqs-table">
+          <h3>Requisitos técnicos</h3>
+          <dl class="reqs-list">
+            {requirements.map(r => (
+              <div class="reqs-list__row">
+                <dt>{r.name}</dt>
+                <dd>{r.value}</dd>
+        </div>
+            ))}
+          </dl>
+        </div>
+        <div class="reqs-license">
+          <h3>Licenciamiento</h3>
+          <div class="license-card">
+            <div class="license-card__badge">GRATUITO</div>
+            <h4>Uso educativo libre</h4>
+            <p>
+              Cisco IT Essentials Virtual Desktop se distribuye sin costo a través del programa
+              Cisco Networking Academy para uso educativo. No es software comercial; no requiere
+              licencia individual ni activación.
+            </p>
+            <ul class="license-list">
+              <li>✓ Estudiantes matriculados</li>
+              <li>✓ Instructores certificados</li>
+              <li>✓ Centros académicos autorizados</li>
+              <li>✗ Redistribución comercial</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Manual de Funcionamiento Básico -->
+  <section class="section manual-section">
+    <div class="container">
+      <span class="section__eyebrow">06 · Manual de Funcionamiento</span>
+      <h2 class="section__title">Galería en 13 pasos.</h2>
+      <p class="section__lead">
+        Sigue esta galería visual para completar el ensamblaje completo de un PC de escritorio,
+        desde el case vacío hasta el primer arranque. Cada imagen muestra una etapa del proceso.
+      </p>
+
+      <div class="gallery">
+        {galleryImages.map((img, i) => (
+          <figure class="gallery__item">
+            {img.src ? (
+              <img src={img.src} alt={img.caption} class="gallery__img" />
+            ) : (
+              <ImgPlaceholder label={img.label} sublabel={img.caption} ratio={img.ratio} />
+            )}
+            <figcaption class="gallery__cap">{img.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Videos de instalación -->
+  </BaseLayout>
+
+<style>
+.hero { position: relative; padding-block: var(--space-9) var(--space-7); overflow: hidden; }
+.hero__bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.hero__blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; }
+.hero__blob--1 { width: 400px; height: 400px; background: radial-gradient(circle, #f9d4ff 0%, transparent 70%); top: -100px; left: -100px; }
+.hero__blob--2 { width: 300px; height: 300px; background: radial-gradient(circle, #d4e4ff 0%, transparent 70%); bottom: -50px; right: 10%; }
+.hero__inner { position: relative; z-index: 1; text-align: center; max-width: 900px; }
+.hero__eyebrow {
+  display: inline-block; padding: 0.4rem 1rem;
+  background: var(--color-accent-soft); color: var(--color-accent);
+  border-radius: var(--radius-pill); font-size: var(--fs-sm); font-weight: 600;
+  margin-bottom: var(--space-4);
+}
+.hero__title { margin-bottom: var(--space-5); font-style: italic; font-weight: 500; }
+.hero__subtitle { font-size: var(--fs-xl); max-width: 680px; margin: 0 auto var(--space-6); line-height: 1.5; }
+.hero__actions { display: flex; gap: var(--space-3); justify-content: center; flex-wrap: wrap; }
+.hero__img {
+  width: 100%;
+  max-height: 480px;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-accent-soft);
+  box-shadow: var(--shadow-card);
+}
+.intro-img {
+  width: 100%;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+}
+.gallery__img {
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-accent-soft);
+  padding: var(--space-3);
+}
+
+.section__eyebrow {
+  display: inline-block; padding: 0.3rem 0.9rem;
+  background: var(--color-accent-soft); color: var(--color-accent);
+  border-radius: var(--radius-pill); font-size: var(--fs-xs); font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: var(--space-4);
+}
+.section__title { margin-bottom: var(--space-5); font-style: italic; font-weight: 500; }
+.section__lead { font-size: var(--fs-lg); line-height: 1.6; margin-bottom: var(--space-7); max-width: 700px; }
+.purple__eyebrow {
+  display: inline-block; padding: 0.3rem 0.9rem;
+  background: rgba(255,255,255,0.15); color: white;
+  border-radius: var(--radius-pill); font-size: var(--fs-xs); font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: var(--space-4);
+}
+
+.intro-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--space-7); align-items: center; }
+.intro-lead { font-size: var(--fs-lg); line-height: 1.7; margin-bottom: var(--space-5); color: var(--color-text); }
+.intro-text { line-height: 1.7; margin-bottom: var(--space-5); }
+.intro-callout {
+  display: flex; gap: var(--space-4);
+  padding: var(--space-5); background: var(--color-accent-soft);
+  border-left: 4px solid var(--color-accent); border-radius: var(--radius-md);
+  font-size: var(--fs-sm); line-height: 1.6;
+}
+.intro-callout__icon { font-size: 28px; flex-shrink: 0; }
+
+.pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+.pros-card { padding: var(--space-6); background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-border); }
+.pros-card--cons { background: linear-gradient(180deg, #fff7f3 0%, #fff 100%); border-color: #ffe0d0; }
+.pros-card__head { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-5); }
+.pros-card__head h3 { font-size: var(--fs-xl); font-style: italic; font-weight: 500; margin: 0; }
+.pros-card__icon {
+  display: grid; place-items: center; width: 40px; height: 40px;
+  border-radius: var(--radius-pill); font-weight: 700;
+}
+.pros-card__icon--pros { background: var(--color-success); color: white; }
+.pros-card__icon--cons { background: var(--color-warning); color: white; }
+.pros-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-4); }
+.pros-list li { display: flex; gap: var(--space-3); align-items: flex-start; }
+.pros-list__icon {
+  flex-shrink: 0; font-size: 22px;
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
+  background: var(--color-accent-soft); border-radius: var(--radius-sm);
+}
+.pros-list strong { display: block; margin-bottom: var(--space-1); }
+.pros-list p { font-size: var(--fs-sm); margin: 0; }
+
+.steps { display: flex; flex-direction: column; gap: var(--space-7); margin-top: var(--space-7); }
+.step { display: grid; grid-template-columns: 80px 1fr; gap: var(--space-5); padding-bottom: var(--space-7); border-bottom: 1px solid var(--color-border); }
+.step:last-child { border-bottom: none; }
+.step__num { font-family: var(--font-display); font-size: var(--fs-4xl); font-style: italic; font-weight: 500; color: var(--color-accent); line-height: 1; }
+.step__title { margin-bottom: var(--space-2); font-weight: 600; font-size: var(--fs-xl); }
+.step__desc { line-height: 1.6; margin-bottom: var(--space-4); }
+.step__media { max-width: 600px; }
+
+.install-cta {
+  margin-top: var(--space-8); padding: var(--space-6);
+  background: white; border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  text-align: center;
+}
+.install-cta h3 { margin-bottom: var(--space-2); }
+.install-cta p { margin-bottom: var(--space-5); }
+.install-cta__actions { display: flex; gap: var(--space-3); justify-content: center; flex-wrap: wrap; }
+
+.reqs-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--space-6); }
+.reqs-table h3, .reqs-license h3 { font-size: var(--fs-xl); margin-bottom: var(--space-4); font-style: italic; font-weight: 500; }
+.reqs-list { display: flex; flex-direction: column; gap: 0; }
+.reqs-list__row { display: grid; grid-template-columns: 200px 1fr; gap: var(--space-4); padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); }
+.reqs-list__row:last-child { border-bottom: none; }
+.reqs-list__row dt { font-weight: 600; color: var(--color-text); }
+.reqs-list__row dd { margin: 0; color: var(--color-text-muted); }
+.license-card { padding: var(--space-6); background: var(--color-accent-deep); color: white; border-radius: var(--radius-xl); }
+.license-card h4 { color: white; font-size: var(--fs-xl); margin-bottom: var(--space-3); }
+.license-card p { color: rgba(255,255,255,0.85); margin-bottom: var(--space-4); line-height: 1.6; }
+.license-card__badge {
+  display: inline-block; padding: 0.3rem 0.9rem;
+  background: white; color: var(--color-accent-deep);
+  border-radius: var(--radius-pill); font-size: var(--fs-xs); font-weight: 700;
+  letter-spacing: 0.08em; margin-bottom: var(--space-4);
+}
+.license-list { list-style: none; padding: 0; margin: 0; font-size: var(--fs-sm); }
+.license-list li { padding: var(--space-2) 0; color: rgba(255,255,255,0.85); }
+
+.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-5); margin-top: var(--space-5); }
+.gallery__item { margin: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.gallery__cap { font-size: var(--fs-sm); color: var(--color-text-muted); text-align: center; }
+
+.videos-section { position: relative; overflow: hidden; }
+.videos-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+.videos-title { color: white; font-style: italic; font-weight: 500; margin-bottom: var(--space-4); }
+.videos-desc { color: rgba(255,255,255,0.85); font-size: var(--fs-lg); margin-bottom: var(--space-7); max-width: 700px; }
+.videos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-5); position: relative; }
+.video-card { position: relative; cursor: pointer; }
+.video-card__media { position: relative; }
+.video-card__play {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px; height: 60px;
+  background: white; color: var(--color-accent-deep);
+  border-radius: var(--radius-pill);
+  display: grid; place-items: center;
+  font-size: 24px; font-weight: 700;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  transition: transform var(--t-fast);
+}
+.video-card:hover .video-card__play { transform: translate(-50%, -50%) scale(1.1); }
+.video-card__title { color: white; margin-top: var(--space-3); font-weight: 500; }
+
+@media (max-width: 768px) {
+  .intro-grid, .pros-cons, .reqs-grid { grid-template-columns: 1fr; gap: var(--space-5); }
+  .reqs-list__row { grid-template-columns: 1fr; gap: var(--space-1); }
+  .step { grid-template-columns: 60px 1fr; gap: var(--space-3); }
+}
+</style>
