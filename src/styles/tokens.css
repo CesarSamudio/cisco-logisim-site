@@ -44,11 +44,11 @@
   --gradient-primary-soft: linear-gradient(135deg, #9b7bff 0%, #7c5dfa 100%);
   --gradient-cta: linear-gradient(135deg, #1A105C 0%, #2E1A8A 50%, #4C35A3 100%);
   --gradient-hero-mesh:
-    radial-gradient(ellipse 900px 600px at 15% 10%, rgba(184, 160, 255, 0.75) 0%, transparent 65%),
-    radial-gradient(ellipse 700px 500px at 85% 20%, rgba(155, 123, 255, 0.55) 0%, transparent 65%),
-    radial-gradient(ellipse 800px 600px at 50% 60%, rgba(212, 197, 255, 0.45) 0%, transparent 70%),
-    radial-gradient(ellipse 700px 500px at 20% 95%, rgba(124, 93, 250, 0.40) 0%, transparent 65%),
-    radial-gradient(ellipse 600px 500px at 90% 80%, rgba(91, 59, 214, 0.30) 0%, transparent 65%);
+    radial-gradient(ellipse 1000px 700px at 15% 10%, rgba(184, 160, 255, 0.95) 0%, transparent 65%),
+    radial-gradient(ellipse 800px 600px at 85% 20%, rgba(155, 123, 255, 0.85) 0%, transparent 65%),
+    radial-gradient(ellipse 900px 700px at 50% 60%, rgba(212, 197, 255, 0.75) 0%, transparent 70%),
+    radial-gradient(ellipse 800px 600px at 20% 95%, rgba(124, 93, 250, 0.65) 0%, transparent 65%),
+    radial-gradient(ellipse 700px 600px at 90% 80%, rgba(91, 59, 214, 0.55) 0%, transparent 65%);
 
   /* Typography */
   --font-display: 'Fraunces', 'GT Super', Georgia, serif;
@@ -99,8 +99,11 @@
   --container-narrow: 800px;
   --nav-height: 72px;
 
-  /* Transitions */
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --t-fast: 150ms var(--ease);
-  --t-base: 250ms var(--ease);
+  /* Transitions — más lentas y orgánicas (anti-brush) */
+  --ease: cubic-bezier(0.34, 1.56, 0.64, 1);     /* overshoot sutil */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);    /* decelerate smooth */
+  --t-fast: 220ms var(--ease-out);
+  --t-base: 400ms var(--ease-out);
+  --t-slow: 600ms var(--ease-out);
+  --t-spring: 500ms var(--ease);
 }

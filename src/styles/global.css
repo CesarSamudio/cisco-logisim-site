@@ -23,10 +23,9 @@ body {
   overflow-x: hidden;
 }
 
-/* ===== MESH GRADIENT DE FONDO (Genway-style v3) =====
-   Mucho más visible: blobs 40-60% más grandes, opacidades 0.55-0.85.
-   Capa fija con z-index -1 — el glassmorphism del nav/botones la distorsiona.
-   Esto es la "luz" del fondo estilo Genway. */
+/* ===== MESH GRADIENT DE FONDO (Genway-style v4) =====
+   Blobs MUCHO más visibles — opacidad 0.95 directa (sin blend modes que fallen
+   en algunos browsers). El backdrop-filter del glass distorsiona este material. */
 body::before {
   content: '';
   position: fixed;
@@ -36,6 +35,7 @@ body::before {
   background-color: #faf8ff;
   background-image: var(--gradient-hero-mesh);
   background-attachment: fixed;
+  opacity: 1;
 }
 
 /* Segunda capa: orbes con blur extra para el efecto "glow" atmosférico */
@@ -46,10 +46,10 @@ body::after {
   pointer-events: none;
   z-index: -1;
   background-image:
-    radial-gradient(circle 380px at 8% 15%, rgba(155, 123, 255, 0.35) 0%, transparent 70%),
-    radial-gradient(circle 320px at 92% 75%, rgba(124, 93, 250, 0.28) 0%, transparent 70%);
+    radial-gradient(circle 380px at 8% 15%, rgba(155, 123, 255, 0.55) 0%, transparent 70%),
+    radial-gradient(circle 320px at 92% 75%, rgba(124, 93, 250, 0.45) 0%, transparent 70%),
+    radial-gradient(circle 280px at 50% 45%, rgba(184, 160, 255, 0.40) 0%, transparent 70%);
   filter: blur(40px);
-  mix-blend-mode: screen;
 }
 
 main, nav, footer { position: relative; z-index: 1; }
@@ -191,6 +191,56 @@ code {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ===== ANIMACIONES DE ENTRADA — fade-up escalonado ===== */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Clases utilitarias — activan las animaciones */
+.animate-fade-up   { animation: fadeUp 700ms var(--ease-out) both; }
+.animate-fade-in   { animation: fadeIn 600ms var(--ease-out) both; }
+.animate-scale-in  { animation: scaleIn 700ms var(--ease-out) both; }
+
+/* Stagger via delays */
+.delay-1 { animation-delay: 80ms; }
+.delay-2 { animation-delay: 160ms; }
+.delay-3 { animation-delay: 240ms; }
+.delay-4 { animation-delay: 320ms; }
+.delay-5 { animation-delay: 400ms; }
+.delay-6 { animation-delay: 480ms; }
+
+/* Intersection Observer hook — hidden por default, JS le pone .in-view */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Responsive — mobile-first hardening */
