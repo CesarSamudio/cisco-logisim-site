@@ -1,7 +1,9 @@
 @import './tokens.css';
-
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
+
+/* Global safety: nunca permitir scroll horizontal por desbordamiento accidental */
+html, body { overflow-x: hidden; }
 
 html {
   scroll-behavior: smooth;
@@ -13,11 +15,44 @@ body {
   font-size: var(--fs-base);
   line-height: 1.6;
   color: var(--color-text);
-  background: var(--color-bg);
+  background: transparent;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
 }
+
+/* ===== MESH GRADIENT DE FONDO (Genway-style v3) =====
+   Mucho más visible: blobs 40-60% más grandes, opacidades 0.55-0.85.
+   Capa fija con z-index -1 — el glassmorphism del nav/botones la distorsiona.
+   Esto es la "luz" del fondo estilo Genway. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-color: #faf8ff;
+  background-image: var(--gradient-hero-mesh);
+  background-attachment: fixed;
+}
+
+/* Segunda capa: orbes con blur extra para el efecto "glow" atmosférico */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image:
+    radial-gradient(circle 380px at 8% 15%, rgba(155, 123, 255, 0.35) 0%, transparent 70%),
+    radial-gradient(circle 320px at 92% 75%, rgba(124, 93, 250, 0.28) 0%, transparent 70%);
+  filter: blur(40px);
+  mix-blend-mode: screen;
+}
+
+main, nav, footer { position: relative; z-index: 1; }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
@@ -51,6 +86,7 @@ code {
   padding: 0.15em 0.4em;
   border-radius: 4px;
   font-size: 0.9em;
+  word-break: break-all;
 }
 
 /* Container */
@@ -70,13 +106,64 @@ code {
 }
 .section--tight { padding-block: var(--space-7); }
 .section--alt { background: var(--color-bg-alt); }
+
+/* ===== SECCIÓN MORADA ESTILO GENWAY (CTA oscuro) =====
+   Mesh gradient dramático con glow central + orbes laterales blancos.
+   Borde luminoso superior tipo "vidrio iluminado". */
 .section--purple {
-  background: var(--color-accent-deep);
+  position: relative;
+  background:
+    radial-gradient(ellipse 800px 500px at 50% 30%, rgba(139, 92, 246, 0.45) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 400px at 80% 90%, rgba(91, 59, 214, 0.35) 0%, transparent 70%),
+    var(--gradient-cta);
   color: white;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.20);
 }
+/* Orbes atmosféricos blancos dentro de la sección oscura */
+.section--purple::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 12% 20%, rgba(255, 255, 255, 0.18) 0%, transparent 35%),
+    radial-gradient(circle at 88% 80%, rgba(255, 255, 255, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 50% 60%, rgba(155, 123, 255, 0.25) 0%, transparent 50%);
+  pointer-events: none;
+  filter: blur(40px);
+}
+/* Borde luminoso superior — efecto vidrio iluminado */
+.section--purple::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.55) 50%, transparent 100%);
+  pointer-events: none;
+}
+.section--purple > * { position: relative; z-index: 1; }
 .section--purple h2,
 .section--purple h3 { color: white; }
-.section--purple p { color: rgba(255, 255, 255, 0.85); }
+.section--purple p { color: rgba(255, 255, 255, 0.88); }
+
+/* ===== UTILIDADES GLASS REUTILIZABLES ===== */
+.glass-card {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.50);
+  box-shadow:
+    0 8px 32px rgba(49, 36, 107, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+.glass-pill {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
 
 /* Visually hidden */
 .sr-only {
@@ -98,8 +185,22 @@ code {
   color: white;
 }
 
-/* Responsive */
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Responsive — mobile-first hardening */
 @media (max-width: 768px) {
   .section { padding-block: var(--space-7); }
   h2 { font-size: var(--fs-3xl); }
+  h1 { font-size: var(--fs-hero); }
+}
+
+@media (max-width: 480px) {
+  .container { padding-inline: var(--space-4); }
+  .section { padding-block: var(--space-6); }
 }

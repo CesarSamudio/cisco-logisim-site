@@ -31,12 +31,13 @@ const apps = [
   current="home"
 >
 
-  <!-- Hero -->
+  <!-- Hero — Blobs morados MUY notorios estilo Genway -->
   <section class="hero">
     <div class="hero__bg" aria-hidden="true">
       <div class="hero__blob hero__blob--1"></div>
       <div class="hero__blob hero__blob--2"></div>
       <div class="hero__blob hero__blob--3"></div>
+      <div class="hero__blob hero__blob--4"></div>
     </div>
     <div class="container hero__inner">
       <span class="hero__eyebrow">Investigación · Herramientas educativas</span>
@@ -53,7 +54,7 @@ const apps = [
     </div>
   </section>
 
-  <!-- Apps Grid -->
+  <!-- Apps Grid — cards con glass + gradient sutil -->
   <section id="apps" class="section apps-section">
     <div class="container">
       <span class="section__eyebrow">Aplicaciones asignadas</span>
@@ -80,7 +81,7 @@ const apps = [
     </div>
   </section>
 
-  <!-- Formulario -->
+  <!-- Formulario — fondo lavanda con mesh sutil -->
   <section id="formulario" class="section forms-section">
     <div class="container">
       <span class="section__eyebrow">Encuesta</span>
@@ -102,7 +103,7 @@ const apps = [
     </div>
   </section>
 
-  <!-- Steps -->
+  <!-- Steps — fondo con mesh gradient -->
   <section class="section steps-section">
     <div class="container container-narrow">
       <span class="section__eyebrow">Cómo navegar</span>
@@ -136,34 +137,69 @@ const apps = [
   </BaseLayout>
 
 <style>
+/* ===== HERO — Blobs morados MUY notorios estilo Genway =====
+   30-50% más grandes, opacidad 0.70-0.85, blur más fuerte. */
 .hero {
   position: relative;
-  padding-block: var(--space-9) var(--space-8);
+  padding-block: var(--space-10) var(--space-9);
   overflow: hidden;
 }
 .hero__bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
 .hero__blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.4;
+  filter: blur(110px);
 }
-.hero__blob--1 { width: 400px; height: 400px; background: radial-gradient(circle, #f9d4ff 0%, transparent 70%); top: -100px; left: -100px; }
-.hero__blob--2 { width: 300px; height: 300px; background: radial-gradient(circle, #d4e4ff 0%, transparent 70%); bottom: -50px; right: 10%; }
-.hero__blob--3 { width: 250px; height: 250px; background: radial-gradient(circle, #fff0d4 0%, transparent 70%); top: 30%; right: -50px; }
+/* Lavanda fuerte arriba-izquierda — el orbe principal */
+.hero__blob--1 {
+  width: 680px; height: 680px;
+  background: radial-gradient(circle, var(--mesh-violet-2) 0%, transparent 70%);
+  top: -160px; left: -140px;
+  opacity: 0.85;
+}
+/* Violeta brillante abajo-derecha — contraste */
+.hero__blob--2 {
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, var(--mesh-violet-3) 0%, transparent 70%);
+  bottom: -120px; right: 5%;
+  opacity: 0.70;
+}
+/* Lavanda medio arriba-derecha */
+.hero__blob--3 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, var(--mesh-violet-1) 0%, transparent 70%);
+  top: 30%; right: -80px;
+  opacity: 0.60;
+}
+/* Glow violeta central detrás del título */
+.hero__blob--4 {
+  width: 700px; height: 500px;
+  background: radial-gradient(ellipse, rgba(139, 92, 246, 0.40) 0%, transparent 70%);
+  top: 20%; left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.55;
+}
 .hero__inner {
   position: relative; z-index: 1;
   text-align: center; max-width: 900px;
 }
+
+/* Eyebrow pill — Glassmorfismo fuerte, MUY visible */
 .hero__eyebrow {
   display: inline-block;
-  padding: 0.4rem 1rem;
-  background: var(--color-accent-soft);
-  color: var(--color-accent);
+  padding: 0.5rem 1.25rem;
+  background: rgba(255, 255, 255, 0.70);
+  color: var(--color-accent-deep);
+  border: 1px solid rgba(124, 93, 250, 0.35);
+  backdrop-filter: blur(18px) saturate(200%);
+  -webkit-backdrop-filter: blur(18px) saturate(200%);
   border-radius: var(--radius-pill);
   font-size: var(--fs-sm);
   font-weight: 600;
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-5);
+  box-shadow:
+    0 6px 20px rgba(124, 93, 250, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.70);
 }
 .hero__title { margin-bottom: var(--space-5); font-style: italic; font-weight: 500; }
 .hero__subtitle {
@@ -178,17 +214,24 @@ const apps = [
   justify-content: center; flex-wrap: wrap;
 }
 
+/* ===== SECTION EYEBROW — glass más visible ===== */
 .section__eyebrow {
   display: inline-block;
-  padding: 0.3rem 0.9rem;
-  background: var(--color-accent-soft);
-  color: var(--color-accent);
+  padding: 0.4rem 1.1rem;
+  background: rgba(237, 229, 255, 0.85);
+  color: var(--color-accent-deep);
+  border: 1px solid rgba(124, 93, 250, 0.28);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
   border-radius: var(--radius-pill);
   font-size: var(--fs-xs);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: var(--space-4);
+  box-shadow:
+    0 4px 14px rgba(124, 93, 250, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
 }
 .section__title {
   margin-bottom: var(--space-7);
@@ -198,9 +241,11 @@ const apps = [
 }
 .purple__eyebrow {
   display: inline-block;
-  padding: 0.3rem 0.9rem;
-  background: rgba(255,255,255,0.15);
+  padding: 0.35rem 1rem;
+  background: rgba(255, 255, 255, 0.18);
   color: white;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
   border-radius: var(--radius-pill);
   font-size: var(--fs-xs);
   font-weight: 700;
@@ -209,33 +254,64 @@ const apps = [
   margin-bottom: var(--space-4);
 }
 
+/* ===== APPS GRID ===== */
 .apps-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: var(--space-6);
 }
 .app-card {
-  background: white;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
+  /* Glassmorfismo fuerte — blanco translúcido con tinte violeta, blur real */
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  border: 1px solid rgba(124, 93, 250, 0.25);
+  border-radius: var(--radius-2xl);
   padding: var(--space-6);
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  transition: all var(--t-base);
+  transition: transform var(--t-base), box-shadow var(--t-base), border-color var(--t-base), background var(--t-base);
+  position: relative;
+  overflow: hidden;
+  min-width: 0;  /* prevent grid blowout */
+  box-shadow:
+    0 8px 32px rgba(49, 36, 107, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.70);
+}
+/* Glow morado en hover */
+.app-card::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle at 50% 0%, rgba(124, 93, 250, 0.10) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity var(--t-base);
+  pointer-events: none;
 }
 .app-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-card);
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow:
+    0 24px 60px rgba(49, 36, 107, 0.28),
+    0 0 60px rgba(124, 93, 250, 0.20);
   border-color: var(--card-accent);
 }
+.app-card:hover::before { opacity: 1; }
 .app-card__icon {
   font-size: 36px;
   display: inline-grid;
   place-items: center;
-  width: 56px; height: 56px;
-  background: var(--color-accent-soft);
-  border-radius: var(--radius-md);
+  width: 60px; height: 60px;
+  background: linear-gradient(135deg, rgba(237, 229, 255, 0.95) 0%, rgba(201, 184, 255, 0.95) 100%);
+  border: 1px solid rgba(124, 93, 250, 0.30);
+  border-radius: var(--radius-lg);
+  position: relative;
+  z-index: 1;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.80),
+    0 4px 12px rgba(124, 93, 250, 0.18);
 }
 .app-card__tag {
   font-size: var(--fs-xs);
@@ -243,22 +319,30 @@ const apps = [
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--card-accent);
+  position: relative;
+  z-index: 1;
 }
 .app-card__name {
   font-size: var(--fs-2xl);
   margin: 0;
   font-style: italic;
   font-weight: 500;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  position: relative;
+  z-index: 1;
 }
-.app-card__desc { font-size: var(--fs-sm); line-height: 1.6; }
+.app-card__desc { font-size: var(--fs-sm); line-height: 1.6; position: relative; z-index: 1; }
 .app-card__img {
   width: 100%;
   max-height: 220px;
   object-fit: contain;
   border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(124, 93, 250, 0.15);
   background: var(--color-accent-soft);
   padding: var(--space-2);
+  position: relative;
+  z-index: 1;
 }
 .app-card__link {
   display: inline-flex;
@@ -267,19 +351,79 @@ const apps = [
   margin-top: var(--space-3);
   font-weight: 600;
   color: var(--card-accent);
+  position: relative;
+  z-index: 1;
 }
 .app-card__link span { transition: transform var(--t-fast); }
 .app-card__link:hover span { transform: translateX(4px); }
 
+/* ===== STEPS — ahora con card glass ===== */
 .steps {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-4);
 }
+.step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  padding: var(--space-5) var(--space-6);
+  /* Glass card fuerte */
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(124, 93, 250, 0.22);
+  border-radius: var(--radius-2xl);
+  box-shadow:
+    0 6px 24px rgba(49, 36, 107, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  transition: all var(--t-base);
+}
+.step:hover {
+  transform: translateX(8px);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow:
+    0 16px 40px rgba(49, 36, 107, 0.24),
+    0 0 50px rgba(124, 93, 250, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  border-color: var(--color-accent);
+}
+.step__num {
+  font-family: var(--font-display);
+  font-size: var(--fs-4xl);
+  font-style: italic;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-deep) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1;
+  flex-shrink: 0;
+  min-width: 60px;
+}
+.step__body { min-width: 0; flex: 1; }
+.step__title { font-size: var(--fs-xl); margin-bottom: var(--space-2); font-weight: 600; }
+.step__desc { font-size: var(--fs-base); line-height: 1.6; }
 
+/* ===== FORMS SECTION — mesh gradient dramático con glass ===== */
 .forms-section {
-  background: var(--color-bg-soft, #faf9fb);
+  position: relative;
+  background:
+    radial-gradient(ellipse 800px 500px at 50% 40%, rgba(212, 197, 255, 0.65) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 400px at 85% 85%, rgba(155, 123, 255, 0.45) 0%, transparent 70%),
+    linear-gradient(180deg, #f1ebff 0%, #e3d5ff 100%);
   text-align: center;
+  overflow: hidden;
+}
+.forms-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.40) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(124, 93, 250, 0.20) 0%, transparent 40%);
+  pointer-events: none;
+  filter: blur(40px);
 }
 .forms-section .section__title {
   margin-inline: auto;
@@ -287,7 +431,7 @@ const apps = [
 .forms-lead {
   font-size: var(--fs-lg);
   line-height: 1.6;
-  color: var(--color-text-muted, #5a5560);
+  color: var(--color-text-muted);
   max-width: 600px;
   margin: 0 auto var(--space-7);
 }
@@ -301,25 +445,43 @@ const apps = [
 .forms-qr__img {
   width: 320px;
   height: 320px;
+  max-width: 100%;
   object-fit: contain;
-  background: white;
+  background: rgba(255, 255, 255, 0.85);
   padding: var(--space-3);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-card);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(124, 93, 250, 0.30);
+  box-shadow:
+    0 16px 48px rgba(49, 36, 107, 0.28),
+    0 0 60px rgba(124, 93, 250, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.80);
 }
 .forms-qr__cap {
   font-size: var(--fs-sm);
-  color: var(--color-text-muted, #5a5560);
+  color: var(--color-text-muted);
+}
+
+/* ===== MOBILE HARDENING ===== */
+@media (max-width: 768px) {
+  .hero { padding-block: var(--space-8) var(--space-7); }
+  .hero__title { font-size: clamp(2rem, 7vw + 0.5rem, 3rem); }
+  .hero__subtitle { font-size: var(--fs-lg); padding-inline: var(--space-2); }
+  .hero__actions { gap: var(--space-2); }
+  .hero__actions :global(.btn) { flex: 1 1 auto; min-width: 140px; }
+  .apps-grid { grid-template-columns: 1fr; gap: var(--space-4); }
+  .app-card { padding: var(--space-5); }
+  .step { padding: var(--space-4) var(--space-5); gap: var(--space-4); }
+  .step__num { font-size: var(--fs-3xl); min-width: 48px; }
+  .step__title { font-size: var(--fs-lg); }
 }
 
 @media (max-width: 480px) {
-  .forms-qr__img {
-    width: 240px;
-    height: 240px;
-  }
-  .forms-section {
-    padding-block: var(--space-7);
-  }
+  .hero { padding-block: var(--space-7) var(--space-6); }
+  .hero__actions { flex-direction: column; align-items: stretch; width: 100%; }
+  .hero__actions :global(.btn) { width: 100%; }
+  .forms-qr__img { width: 240px; height: 240px; }
+  .forms-section { padding-block: var(--space-7); }
+  .step { flex-direction: column; align-items: flex-start; gap: var(--space-2); padding: var(--space-4); }
+  .step__num { font-size: var(--fs-2xl); }
 }
 </style>

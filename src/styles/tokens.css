@@ -1,23 +1,54 @@
-/* Design Tokens — Fly.io inspired, adapted for educational software research */
+/* Design Tokens — Genway-style v3 (Jul-2026) — más profundo, más glass, más morado */
 :root {
-  /* Colors */
-  --color-bg: #f9f9fb;
+  /* Colors — paleta base */
+  --color-bg: #faf8ff;                   /* lavanda casi imperceptible de fondo */
   --color-bg-alt: #ffffff;
-  --color-bg-soft: #f0ebff;
-  --color-text: #2d3748;
-  --color-text-muted: #4a5568;
-  --color-text-soft: #718096;
-  --color-accent: #7c5dfa;
-  --color-accent-hover: #6948e8;
-  --color-accent-deep: #6332f6;
-  --color-accent-soft: #f0ebff;
+  --color-bg-soft: #f1ebff;              /* lavanda visible */
+
+  --color-text: #1a1330;
+  --color-text-muted: #4a4163;
+  --color-text-soft: #6b6188;
+
+  /* ===== PALETA MORADA ESTILO GENWAY — más saturada ===== */
+  --color-accent: #7c5dfa;               /* violeta medio principal */
+  --color-accent-hover: #6d4af0;
+  --color-accent-deep: #31246B;          /* deep violet Genway */
+  --color-accent-deeper: #1f1742;        /* casi negro violáceo */
+  --color-accent-bright: #9b7bff;        /* violeta claro brillante */
+  --color-accent-light: #c9b8ff;         /* lavanda medio */
+  --color-accent-soft: #ede5ff;          /* lavanda claro fondo */
+  --color-accent-softer: #f7f3ff;        /* lavanda ultra claro (cards) */
+
+  /* Color morado para CTA gradient — más profundo y dramático */
+  --color-purple-cta-start: #1A105C;     /* indigo muy oscuro Genway */
+  --color-purple-cta-mid: #31246B;
+  --color-purple-cta-end: #5b3bd6;
+
   --color-border: #e8e3f5;
   --color-border-strong: #d6cce8;
-  --color-dark: #110f2e;
+  --color-dark: #0F172A;
   --color-dark-text: #a0a8c0;
   --color-success: #6abf4b;
   --color-warning: #ff8a4c;
   --color-error: #e53e3e;
+
+  /* Mesh gradient base colors (Genway-style background) — más saturados */
+  --mesh-violet-1: #d4c5ff;              /* lavanda más fuerte */
+  --mesh-violet-2: #b8a0ff;
+  --mesh-violet-3: #9b7bff;              /* violeta brillante */
+  --mesh-violet-deep: #5b3bd6;
+  --mesh-violet-glow: #8b5cf6;           /* para glow atmosférico */
+
+  /* Gradients reutilizables */
+  --gradient-primary: linear-gradient(135deg, #7c5dfa 0%, #5b3bd6 50%, #31246B 100%);
+  --gradient-primary-soft: linear-gradient(135deg, #9b7bff 0%, #7c5dfa 100%);
+  --gradient-cta: linear-gradient(135deg, #1A105C 0%, #2E1A8A 50%, #4C35A3 100%);
+  --gradient-hero-mesh:
+    radial-gradient(ellipse 900px 600px at 15% 10%, rgba(184, 160, 255, 0.75) 0%, transparent 65%),
+    radial-gradient(ellipse 700px 500px at 85% 20%, rgba(155, 123, 255, 0.55) 0%, transparent 65%),
+    radial-gradient(ellipse 800px 600px at 50% 60%, rgba(212, 197, 255, 0.45) 0%, transparent 70%),
+    radial-gradient(ellipse 700px 500px at 20% 95%, rgba(124, 93, 250, 0.40) 0%, transparent 65%),
+    radial-gradient(ellipse 600px 500px at 90% 80%, rgba(91, 59, 214, 0.30) 0%, transparent 65%);
 
   /* Typography */
   --font-display: 'Fraunces', 'GT Super', Georgia, serif;
@@ -53,12 +84,15 @@
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 24px;
+  --radius-2xl: 32px;
   --radius-pill: 999px;
 
-  /* Shadows */
-  --shadow-soft: 0 2px 12px rgba(124, 93, 250, 0.08);
-  --shadow-card: 0 4px 20px rgba(124, 93, 250, 0.10);
-  --shadow-elev: 0 12px 36px rgba(124, 93, 250, 0.18);
+  /* Sombras — intensificadas con tinte violeta, glow visible */
+  --shadow-soft: 0 4px 16px rgba(124, 93, 250, 0.18);
+  --shadow-card: 0 8px 32px rgba(49, 36, 107, 0.18);
+  --shadow-elev: 0 20px 50px rgba(49, 36, 107, 0.30);
+  --shadow-glow: 0 0 80px rgba(124, 93, 250, 0.45);
+  --shadow-glow-violet: 0 0 60px rgba(139, 92, 246, 0.55), 0 8px 24px rgba(91, 59, 214, 0.35);
 
   /* Layout */
   --container-max: 1200px;

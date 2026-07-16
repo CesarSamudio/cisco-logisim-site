@@ -44,20 +44,30 @@ const team = [
 
 <style>
 .team-section {
-  background: var(--color-bg-soft, #faf9fb);
+  position: relative;
+  background:
+    radial-gradient(ellipse 500px 300px at 50% 0%, rgba(237, 229, 255, 0.6) 0%, transparent 70%),
+    linear-gradient(180deg, var(--color-accent-softer) 0%, #ffffff 100%);
+  overflow: hidden;
 }
 
 .section__eyebrow {
   display: inline-block;
-  padding: 0.3rem 0.9rem;
-  background: var(--color-accent-soft);
-  color: var(--color-accent);
+  padding: 0.4rem 1.1rem;
+  background: rgba(237, 229, 255, 0.85);
+  color: var(--color-accent-deep);
+  border: 1px solid rgba(124, 93, 250, 0.28);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
   border-radius: var(--radius-pill);
   font-size: var(--fs-xs);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: var(--space-4);
+  box-shadow:
+    0 4px 14px rgba(124, 93, 250, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
 }
 
 .section__title {
@@ -72,7 +82,7 @@ const team = [
   line-height: 1.6;
   margin-bottom: var(--space-7);
   max-width: 700px;
-  color: var(--color-text-muted, #5a5560);
+  color: var(--color-text-muted);
 }
 
 .team-grid {
@@ -83,19 +93,41 @@ const team = [
 }
 
 .team-card {
-  background: white;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
+  /* Glass card fuerte estilo Genway */
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(124, 93, 250, 0.25);
+  border-radius: var(--radius-2xl);
   padding: var(--space-6);
   text-align: center;
-  transition: all var(--t-base, 0.3s ease);
+  transition: all var(--t-base);
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  box-shadow:
+    0 8px 32px rgba(49, 36, 107, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.70);
 }
-
+.team-card::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle at 50% 0%, rgba(124, 93, 250, 0.18) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity var(--t-base);
+  pointer-events: none;
+}
 .team-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-card);
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow:
+    0 24px 60px rgba(49, 36, 107, 0.28),
+    0 0 60px rgba(124, 93, 250, 0.20);
   border-color: var(--color-accent);
 }
+.team-card:hover::before { opacity: 1; }
 
 .team-card__photo {
   width: 140px;
@@ -105,6 +137,11 @@ const team = [
   overflow: hidden;
   background: var(--color-accent-soft);
   position: relative;
+  border: 3px solid var(--color-accent-soft);
+  box-shadow:
+    0 0 0 4px rgba(124, 93, 250, 0.15),
+    0 8px 24px rgba(124, 93, 250, 0.30);
+  z-index: 1;
 }
 
 .team-card__img {
@@ -132,6 +169,8 @@ const team = [
   font-style: italic;
   font-weight: 500;
   color: var(--color-text);
+  position: relative;
+  z-index: 1;
 }
 
 .team-card__role {
@@ -140,6 +179,8 @@ const team = [
   font-weight: 600;
   letter-spacing: 0.04em;
   margin: 0;
+  position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 600px) {
