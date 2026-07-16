@@ -34,10 +34,11 @@ const links = [
   position: sticky;
   top: 0;
   z-index: 100;
-  /* Glassmorfismo intensificado: tinte violeta visible + blur fuerte + highlight superior */
+  /* Glassmorfismo intensificado: tinte violeta visible + blur fuerte + highlight superior.
+     blur 18px en vez de 28px — bastante más rápido sin perder glass. */
   background: rgba(247, 243, 255, 0.78);
-  backdrop-filter: saturate(220%) blur(28px);
-  -webkit-backdrop-filter: saturate(220%) blur(28px);
+  backdrop-filter: saturate(180%) blur(18px);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
   border-bottom: 1px solid rgba(124, 93, 250, 0.22);
   box-shadow:
     0 6px 28px rgba(49, 36, 107, 0.10),

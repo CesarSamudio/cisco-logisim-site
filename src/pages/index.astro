@@ -270,11 +270,12 @@ const apps = [
 }
 .app-card {
   /* Glassmorfismo fuerte — gradient lavanda visible AUN sin backdrop-filter.
-     45-55% opacidad para que el morado de atrás se vea claramente */
+     45-55% opacidad para que el morado de atrás se vea claramente.
+     blur(18px) en vez de 28px: bastante más rápido sin perder el look glass. */
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(247, 243, 255, 0.45) 100%);
-  backdrop-filter: blur(28px) saturate(200%);
-  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
   border: 1px solid rgba(124, 93, 250, 0.35);
   border-radius: var(--radius-2xl);
   padding: var(--space-6);
@@ -294,6 +295,7 @@ const apps = [
     0 2px 8px rgba(124, 93, 250, 0.10),
     inset 0 1px 0 rgba(255, 255, 255, 0.85),
     inset 0 -1px 0 rgba(124, 93, 250, 0.08);
+  will-change: transform;
 }
 /* Glow morado en hover */
 .app-card::before {
@@ -394,11 +396,11 @@ const apps = [
   align-items: center;
   gap: var(--space-5);
   padding: var(--space-5) var(--space-6);
-  /* Glass card fuerte — gradient lavanda visible */
+  /* Glass card fuerte — gradient lavanda visible. blur 16px para velocidad. */
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(247, 243, 255, 0.45) 100%);
-  backdrop-filter: blur(24px) saturate(200%);
-  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid rgba(124, 93, 250, 0.32);
   border-radius: var(--radius-2xl);
   box-shadow:
@@ -410,6 +412,7 @@ const apps = [
     background var(--t-base),
     box-shadow var(--t-base),
     border-color var(--t-base);
+  will-change: transform;
 }
 .step:hover {
   transform: translateX(10px) scale(1.008);

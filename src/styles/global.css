@@ -23,9 +23,10 @@ body {
   overflow-x: hidden;
 }
 
-/* ===== MESH GRADIENT DE FONDO (Genway-style v4) =====
-   Blobs MUCHO más visibles — opacidad 0.95 directa (sin blend modes que fallen
-   en algunos browsers). El backdrop-filter del glass distorsiona este material. */
+/* ===== MESH GRADIENT DE FONDO (Genway-style v5 — móvil-friendly) =====
+   En escritorio: blobs + background-attachment fixed + orbes con blur extra.
+   En móvil: backdrop-filter y filters blur son CARÍSIMOS en GPU.
+   Se degrada a un gradient simple (sin fixed, sin blur extra). */
 body::before {
   content: '';
   position: fixed;
@@ -34,11 +35,9 @@ body::before {
   z-index: -1;
   background-color: #faf8ff;
   background-image: var(--gradient-hero-mesh);
-  background-attachment: fixed;
-  opacity: 1;
 }
 
-/* Segunda capa: orbes con blur extra para el efecto "glow" atmosférico */
+/* Segunda capa: orbes con blur extra. En móvil esta capa se oculta (ver media query). */
 body::after {
   content: '';
   position: fixed;
@@ -248,6 +247,77 @@ code {
   .section { padding-block: var(--space-7); }
   h2 { font-size: var(--fs-3xl); }
   h1 { font-size: var(--fs-hero); }
+}
+
+/* ============================================================
+   MÓVIL — degradación de performance
+   Backdrop-filter, filters blur y background-attachment fixed
+   son CARÍSIMOS en GPU móvil. Se desactivan sin perder el look.
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Quitar background-attachment fixed — usar gradient scroll normal */
+  body::before {
+    position: absolute;       /* scroll-friendly */
+    background-attachment: scroll;
+  }
+  /* Ocultar segunda capa de orbes blur — es el devorador de FPS */
+  body::after { display: none; }
+
+  /* Quitar backdrop-filter de TODAS las cards/pills — caen al gradient lavanda
+     (que ya es visible sin blur, recuerda: linear-gradient lavanda 0.45-0.55 alpha) */
+  .app-card,
+  .step,
+  .team-card,
+  .glass-card,
+  .glass-pill,
+  .nav,
+  .nav__pill,
+  .hero__eyebrow,
+  .section__eyebrow,
+  .btn--primary,
+  .btn--outline,
+  .btn--ghost {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Reducir radios de sombra que el browser repinta */
+  .app-card,
+  .step,
+  .team-card {
+    box-shadow:
+      0 4px 16px rgba(49, 36, 107, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.65) !important;
+  }
+
+  /* Hover states en móvil: desactivar transforms (no hay hover real,
+     solo sticky-hover que se siente raro) */
+  .app-card:hover,
+  .step:hover,
+  .team-card:hover,
+  .btn--primary:hover,
+  .btn--outline:hover,
+  .btn--ghost:hover {
+    transform: none !important;
+  }
+
+  /* Quitar stagger animations — aparecen directo para no demorar first paint */
+  .hero__eyebrow,
+  .hero__title,
+  .hero__subtitle,
+  .hero__actions,
+  .app-card,
+  .step,
+  .reveal {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Nav más opaco para legibilidad sin blur */
+  .nav {
+    background: rgba(247, 243, 255, 0.96);
+  }
 }
 
 @media (max-width: 480px) {

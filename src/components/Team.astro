@@ -93,11 +93,11 @@ const team = [
 }
 
 .team-card {
-  /* Glass card fuerte — gradient lavanda visible */
+  /* Glass card fuerte — gradient lavanda visible. blur 16px para velocidad. */
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(247, 243, 255, 0.45) 100%);
-  backdrop-filter: blur(24px) saturate(200%);
-  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid rgba(124, 93, 250, 0.35);
   border-radius: var(--radius-2xl);
   padding: var(--space-6);
@@ -114,6 +114,7 @@ const team = [
     0 8px 32px rgba(49, 36, 107, 0.16),
     0 2px 8px rgba(124, 93, 250, 0.10),
     inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  will-change: transform;
 }
 .team-card::before {
   content: '';
