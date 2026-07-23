@@ -5,21 +5,21 @@ import ImgPlaceholder from '../components/ImgPlaceholder.astro';
 import YouTubeEmbed from '../components/YouTubeEmbed.astro';
 
 const features = [
-  { icon: '🎓', title: 'Uso educativo', desc: 'Diseñado para acompañar el currículo oficial de IT Essentials de Cisco Networking Academy.' },
-  { icon: '🛡️', title: 'Sin riesgo de daño', desc: 'Permite practicar ensamblaje de componentes sin riesgo de dañar hardware real costoso.' },
-  { icon: '🌐', title: 'Multiplataforma', desc: 'Corre en cualquier navegador moderno con soporte WebAssembly a través del emulador Ruffle.' },
-  { icon: '🆓', title: 'Gratuito', desc: 'Sin licencias, sin suscripciones, sin costo para los estudiantes de los Cisco Academies.' },
+  { icon: '/images/cisco/icons/graduacion.svg', title: 'Uso educativo', desc: 'Diseñado para acompañar el currículo oficial de IT Essentials de Cisco Networking Academy.' },
+  { icon: '/images/cisco/icons/escudo-check.svg', title: 'Sin riesgo de daño', desc: 'Permite practicar ensamblaje de componentes sin riesgo de dañar hardware real costoso.' },
+  { icon: '/images/cisco/icons/globo-web.svg', title: 'Multiplataforma', desc: 'Corre en cualquier navegador moderno con soporte WebAssembly a través del emulador Ruffle.' },
+  { icon: '/images/cisco/icons/gratis.svg', title: 'Gratuito', desc: 'Sin licencias, sin suscripciones, sin costo para los estudiantes de los Cisco Academies.' },
 ];
 
 const pros = [
-  { icon: '💰', title: 'Costo cero', desc: 'Totalmente gratuito para estudiantes inscritos en Cisco Academy.' },
-  { icon: '🔁', title: 'Práctica ilimitada', desc: 'Repite los procedimientos cuantas veces necesites sin gastar componentes reales.' },
-  { icon: '📖', title: 'Integrado con el curso', desc: 'Los laboratorios están alineados con el currículo oficial de IT Essentials v7.' },
+  { icon: '/images/cisco/icons/dinero-cancelado.svg', title: 'Costo cero', desc: 'Totalmente gratuito para estudiantes inscritos en Cisco Academy.' },
+  { icon: '/images/cisco/icons/refresh.svg', title: 'Práctica ilimitada', desc: 'Repite los procedimientos cuantas veces necesites sin gastar componentes reales.' },
+  { icon: '/images/cisco/icons/libro-abierto.svg', title: 'Integrado con el curso', desc: 'Los laboratorios están alineados con el currículo oficial de IT Essentials v7.' },
 ];
 
 const cons = [
-  { icon: '⚠️', title: 'Depende de Adobe Flash', desc: 'La aplicación original fue construida en ActionScript/Flash, tecnología descontinuada desde 2020. Solo funciona mediante el emulador Ruffle.' },
-  { icon: '🔧', title: 'No firmada en algunos OS', desc: 'En macOS requiere abrir desde Preferencias del Sistema la primera vez. Algunas versiones pueden disparar alertas de seguridad.' },
+  { icon: '/images/cisco/icons/alerta-triangulo.svg', title: 'Depende de Adobe Flash', desc: 'La aplicación original fue construida en ActionScript/Flash, tecnología descontinuada desde 2020. Solo funciona mediante el emulador Ruffle.' },
+  { icon: '/images/cisco/icons/llave-inglesa.svg', title: 'No firmada en algunos OS', desc: 'En macOS requiere abrir desde Preferencias del Sistema la primera vez. Algunas versiones pueden disparar alertas de seguridad.' },
 ];
 
 const steps = [
@@ -211,7 +211,7 @@ const videos = [
           <ul class="pros-list">
             {pros.map(p => (
               <li>
-                <span class="pros-list__icon">{p.icon}</span>
+                <span class="pros-list__icon"><img src={p.icon} alt="" class="pros-list__svg" /></span>
                 <div>
                   <strong>{p.title}</strong>
                   <p>{p.desc}</p>
@@ -229,7 +229,7 @@ const videos = [
           <ul class="pros-list">
             {cons.map(c => (
               <li>
-                <span class="pros-list__icon">{c.icon}</span>
+                <span class="pros-list__icon"><img src={c.icon} alt="" class="pros-list__svg" /></span>
                 <div>
                   <strong>{c.title}</strong>
                   <p>{c.desc}</p>
@@ -465,6 +465,7 @@ const videos = [
   border: 1px solid rgba(124, 93, 250, 0.15);
   border-radius: var(--radius-sm);
 }
+.pros-list__svg { width: 22px; height: 22px; display: block; }
 .pros-list strong { display: block; margin-bottom: var(--space-1); word-wrap: break-word; }
 .pros-list p { font-size: var(--fs-sm); margin: 0; }
 
