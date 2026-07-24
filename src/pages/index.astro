@@ -69,7 +69,7 @@ const trust = [
       </div>
     <div class="container hero__inner">
       <span class="hero__eyebrow">
-        <img src="/images/escudo/escudo-tomas-guardia.jpg" alt="" class="hero__school-mark-logo" />
+        <img src={`${import.meta.env.BASE_URL}/images/escudo/escudo-tomas-guardia.jpg`} alt="" class="hero__school-mark-logo" />
         <span class="hero__school-mark-text">COLEGIO INGENIERO TOMÁS GUARDIA</span>
       </span>
         <h1 class="hero__title hero__title--light">ENSAMBLA PCS.<br/>DISEÑA CIRCUITOS.<br/>PRACTICA SIN ROMPER NI UN CABLE.</h1>
@@ -252,8 +252,8 @@ const trust = [
   pointer-events: none; /* NO interactivo, ni hover, ni link */
 }
 .hero__school-mark-logo {
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
   border-radius: var(--radius-pill);
   background: white;
   object-fit: cover;
@@ -261,7 +261,7 @@ const trust = [
   box-shadow: 0 2px 6px rgba(15, 12, 40, 0.20);
 }
 .hero__school-mark-text {
-  font-size: var(--fs-sm);
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
   font-weight: 700;
   color: var(--color-accent-deep);
   letter-spacing: 0.10em;
@@ -274,15 +274,15 @@ const trust = [
   display: inline-flex;
   align-items: center;
   gap: var(--space-3);
-  padding: 0.5rem 1.1rem 0.5rem 0.5rem;
+  padding: 0.6rem 1.4rem 0.6rem 0.6rem;
   background: rgba(255, 255, 255, 0.70);
   color: var(--color-accent-deep);
   border: 1px solid rgba(124, 93, 250, 0.35);
   backdrop-filter: blur(18px) saturate(200%);
   -webkit-backdrop-filter: blur(18px) saturate(200%);
   border-radius: var(--radius-pill);
-  font-size: var(--fs-sm);
-  font-weight: 600;
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  font-weight: 700;
   margin-bottom: var(--space-5);
   box-shadow:
     0 6px 20px rgba(124, 93, 250, 0.20),
@@ -689,6 +689,9 @@ const trust = [
 @media (max-width: 768px) {
   .hero { padding-block: var(--space-8) var(--space-7); }
   .hero__title { font-size: clamp(2rem, 7vw + 0.5rem, 3rem); }
+  .hero__eyebrow { max-width: 100%; padding: 0.5rem 1rem 0.5rem 0.5rem; }
+  .hero__school-mark-logo { width: 42px; height: 42px; }
+  .hero__school-mark-text { white-space: normal; text-align: left; line-height: 1.15; }
   .hero__subtitle { font-size: var(--fs-lg); padding-inline: var(--space-2); }
   .hero__actions { gap: var(--space-2); }
   .hero__actions :global(.btn) { flex: 1 1 auto; min-width: 140px; }

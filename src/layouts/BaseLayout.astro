@@ -31,9 +31,36 @@ const {
     </main>
     <Footer />
 
+    <audio id="ui-sound" src={`${import.meta.env.BASE_URL}/audio/ui-sound.mp3`} preload="auto" aria-hidden="true"></audio>
+
     <script is:inline>
-      // Header sticky permanente — sin lógica de scroll
-      console.log('[nav] sticky permanente activo');
+      // Sonido UI global: feedback corto y discreto para controles accionables.
+      const uiAudio = document.querySelector('#ui-sound');
+      const uiSelector = 'a, button, summary, [role="button"]';
+
+      function isEnabledControl(target) {
+        return target && !target.hasAttribute('disabled') && target.getAttribute('aria-disabled') !== 'true';
+      }
+
+      function playUiSound() {
+        if (!uiAudio) return;
+        uiAudio.volume = 0.42;
+        uiAudio.currentTime = 0;
+        uiAudio.play().catch(() => {});
+      }
+
+      // Pointerdown inicia el sonido antes de que un enlace cambie de página.
+      document.addEventListener('pointerdown', (event) => {
+        const target = event.target instanceof Element ? event.target.closest(uiSelector) : null;
+        if (isEnabledControl(target)) playUiSound();
+      }, { passive: true });
+
+      // Los controles activados con teclado generan click con detail === 0.
+      document.addEventListener('click', (event) => {
+        if (event.detail !== 0) return;
+        const target = event.target instanceof Element ? event.target.closest(uiSelector) : null;
+        if (isEnabledControl(target)) playUiSound();
+      }, { passive: true });
     </script>
   </body>
 </html>

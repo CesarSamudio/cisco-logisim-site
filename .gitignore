@@ -17,6 +17,9 @@ pnpm-debug.log*
 .env
 .env.production
 
+# Hermes local attachments
+.hermes/
+
 # macOS-specific files
 .DS_Store
 
