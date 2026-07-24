@@ -2,8 +2,12 @@
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
 
-/* Global safety: nunca permitir scroll horizontal por desbordamiento accidental */
-html, body { overflow-x: hidden; }
+/* Global safety: nunca permitir scroll horizontal por desbordamiento accidental.
+   IMPORTANTE: solo en <html>, NO en <body>. Si body tiene overflow-x: hidden,
+   se convierte en el scroll container del nav sticky y rompe el sticky
+   (Chrome delega el scroll al html igualmente, pero el sticky queda anclado
+   al body y se va con el contenido). */
+html { overflow-x: hidden; }
 
 html {
   scroll-behavior: smooth;
@@ -20,7 +24,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
   position: relative;
-  overflow-x: hidden;
 }
 
 /* ===== MESH GRADIENT DE FONDO (Genway-style v5 — móvil-friendly) =====
