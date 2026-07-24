@@ -54,14 +54,13 @@ const trust = [
       <div class="hero__blob hero__blob--3"></div>
       <div class="hero__blob hero__blob--4"></div>
     </div>
-    <!-- Sello de marca del colegio: overlay de fondo, no interactivo -->
-    <div class="hero__school-mark" aria-hidden="true">
-      <img src="/images/escudo/escudo-tomas-guardia.jpg" alt="" class="hero__school-mark-logo" />
-      <span class="hero__school-mark-text">Colegio Ingeniero Tomás Guardia</span>
-    </div>
+    <!-- Sello del colegio: dentro del eyebrow, ver más abajo -->
     <div class="container hero__inner">
-      <span class="hero__eyebrow">INVESTIGACIÓN · HERRAMIENTAS EDUCATIVAS</span>
-      <h1 class="hero__title">DOS SIMULADORES.<br/>CERO RIESGO.<br/>UNA INVESTIGACIÓN QUE SE SIENTE COMO JUGAR.</h1>
+      <span class="hero__eyebrow">
+        <img src="/images/escudo/escudo-tomas-guardia.jpg" alt="" class="hero__school-mark-logo" />
+        <span class="hero__school-mark-text">COLEGIO INGENIERO TOMÁS GUARDIA</span>
+      </span>
+        <h1 class="hero__title">DOS SIMULADORES.<br/>CERO RIESGO.<br/>UNA INVESTIGACIÓN QUE SE SIENTE COMO JUGAR.</h1>
       <p class="hero__subtitle">
         Aprendé a <strong>ensamblar un PC</strong> y a <strong>diseñar circuitos lógicos</strong>
         sin gastar un peso ni romper un componente. Dos herramientas oficiales, usadas en
@@ -252,16 +251,19 @@ const trust = [
 }
 .hero__school-mark-text {
   font-size: var(--fs-sm);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-accent-deep);
-  letter-spacing: 0.01em;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
-/* Eyebrow pill — Glassmorfismo fuerte, MUY visible */
+/* Eyebrow pill con logo del colegio (index) */
 .hero__eyebrow {
-  display: inline-block;
-  padding: 0.5rem 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0.5rem 1.1rem 0.5rem 0.5rem;
   background: rgba(255, 255, 255, 0.70);
   color: var(--color-accent-deep);
   border: 1px solid rgba(124, 93, 250, 0.35);
@@ -295,8 +297,6 @@ const trust = [
   justify-content: center; flex-wrap: wrap;
   animation: fadeUp 800ms 320ms var(--ease-out) both;
 }
-
-/* ===== SECTION EYEBROW — glass más visible ===== */
 .section__eyebrow {
   display: inline-block;
   padding: 0.4rem 1.1rem;
