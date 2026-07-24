@@ -46,22 +46,34 @@ const trust = [
   current="home"
 >
 
-  <!-- Hero — Blobs morados MUY notorios estilo Genway -->
-  <section class="hero">
-    <div class="hero__bg" aria-hidden="true">
-      <div class="hero__blob hero__blob--1"></div>
-      <div class="hero__blob hero__blob--2"></div>
-      <div class="hero__blob hero__blob--3"></div>
-      <div class="hero__blob hero__blob--4"></div>
-    </div>
-    <!-- Sello del colegio: dentro del eyebrow, ver más abajo -->
+  <!-- Hero — Video de fondo + copy promocional -->
+  <section class="hero hero--video">
+      <video
+        class="hero__video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        poster="/images/index/hero-index-poster.jpg"
+        aria-hidden="true"
+      >
+        <source src="/videos/hero-index.mp4" type="video/mp4" />
+      </video>
+      <div class="hero__overlay" aria-hidden="true"></div>
+      <div class="hero__bg" aria-hidden="true">
+        <div class="hero__blob hero__blob--1"></div>
+        <div class="hero__blob hero__blob--2"></div>
+        <div class="hero__blob hero__blob--3"></div>
+        <div class="hero__blob hero__blob--4"></div>
+      </div>
     <div class="container hero__inner">
       <span class="hero__eyebrow">
         <img src="/images/escudo/escudo-tomas-guardia.jpg" alt="" class="hero__school-mark-logo" />
         <span class="hero__school-mark-text">COLEGIO INGENIERO TOMÁS GUARDIA</span>
       </span>
-        <h1 class="hero__title">DOS SIMULADORES.<br/>CERO RIESGO.<br/>UNA INVESTIGACIÓN QUE SE SIENTE COMO JUGAR.</h1>
-      <p class="hero__subtitle">
+        <h1 class="hero__title hero__title--light">DOS SIMULADORES.<br/>CERO RIESGO.<br/>UNA INVESTIGACIÓN QUE SE SIENTE COMO JUGAR.</h1>
+      <p class="hero__subtitle hero__subtitle--light">
         Aprendé a <strong>ensamblar un PC</strong> y a <strong>diseñar circuitos lógicos</strong>
         sin gastar un peso ni romper un componente. Dos herramientas oficiales, usadas en
         academias de todo el mundo.
@@ -148,32 +160,53 @@ const trust = [
   </BaseLayout>
 
 <style>
-/* ===== HERO — Blobs morados MUY notorios estilo Genway =====
-   30-50% más grandes, opacidad 0.70-0.85, blur más fuerte. */
+/* ===== HERO — Video de fondo + copy promocional ===== */
 .hero {
   position: relative;
   padding-block: var(--space-10) var(--space-9);
   overflow: hidden;
+  isolation: isolate;
 }
-.hero__bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.hero--video { padding-block: var(--space-10) var(--space-8); }
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  background: #0f0c28;
+}
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  /* Mismo degradado morado de los otros heroes — más suave para que se vea el video */
+  background:
+    linear-gradient(180deg,
+      rgba(15, 12, 40, 0.35) 0%,
+      rgba(15, 12, 40, 0.50) 50%,
+      rgba(15, 12, 40, 0.65) 100%),
+    radial-gradient(ellipse at center, rgba(124, 93, 250, 0.25) 0%, transparent 70%);
+}
+.hero__bg { position: absolute; inset: 0; pointer-events: none; z-index: -1; }
 .hero__blob {
   position: absolute;
   border-radius: 50%;
   filter: blur(110px);
+  opacity: 0.55;  /* Más visibles que en cisco-it para que se note el degradado */
 }
 /* Lavanda fuerte arriba-izquierda — el orbe principal */
 .hero__blob--1 {
   width: 680px; height: 680px;
   background: radial-gradient(circle, var(--mesh-violet-2) 0%, transparent 70%);
   top: -160px; left: -140px;
-  opacity: 0.85;
 }
 /* Violeta brillante abajo-derecha — contraste */
 .hero__blob--2 {
   width: 520px; height: 520px;
   background: radial-gradient(circle, var(--mesh-violet-3) 0%, transparent 70%);
   bottom: -120px; right: 5%;
-  opacity: 0.70;
 }
 /* Lavanda medio arriba-derecha */
 .hero__blob--3 {
@@ -263,6 +296,14 @@ const trust = [
   font-weight: 500;
   animation: fadeUp 800ms 100ms var(--ease-out) both;
 }
+.hero__title--light {
+  color: white;
+  font-weight: 600;
+  text-shadow: 0 4px 24px rgba(15, 12, 40, 0.55);
+  font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
 .hero__subtitle {
   font-size: var(--fs-xl);
   max-width: 680px;
@@ -270,6 +311,12 @@ const trust = [
   line-height: 1.5;
   animation: fadeUp 800ms 200ms var(--ease-out) both;
 }
+.hero__subtitle--light {
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 400;
+  text-shadow: 0 2px 12px rgba(15, 12, 40, 0.40);
+}
+.hero__subtitle--light strong { color: white; font-weight: 700; }
 .hero__subtitle strong { color: var(--color-accent); font-weight: 600; }
 .hero__actions {
   display: flex; gap: var(--space-3);

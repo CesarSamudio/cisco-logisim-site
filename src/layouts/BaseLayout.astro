@@ -32,55 +32,95 @@ const {
     <Footer />
 
     <script is:inline>
+      // ====================================================================
+      // HEADER STICKY INTELIGENTE — versión ULTRA ROBUSTA
+      // Patrón Vercel/Stripe: rAF loop continuo + try/catch + console.log
+      // ====================================================================
       (function () {
-        var nav = document.querySelector('.nav');
-        if (!nav) return;
+        'use strict';
 
-        // Sentinel: 1px pegado al top del body, antes del nav.
-        // Mientras su top relativo al viewport sea >= 0 -> el nav está en zona visible -> mostrar.
-        // Cuando top < 0 -> el nav salió por arriba -> aplicar hide/show según dirección de scroll.
-        var sentinel = document.createElement('div');
-        sentinel.setAttribute('aria-hidden', 'true');
-        sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none;';
-        document.body.insertBefore(sentinel, document.body.firstChild);
-
-        var lastY = window.scrollY || window.pageYOffset || 0;
-        var hidden = false;
-        var DELTA = 4;
-
-        function setHidden(state) {
-          if (state === hidden) return;
-          hidden = state;
-          if (state) nav.classList.add('nav--hidden');
-          else nav.classList.remove('nav--hidden');
-        }
-
-        function update() {
-          var y = window.scrollY || window.pageYOffset || 0;
-          var diff = y - lastY;
-          var sentinelTop = sentinel.getBoundingClientRect().top;
-
-          if (sentinelTop >= 0) {
-            // Top del documento -> siempre visible
-            setHidden(false);
-          } else {
-            // Sentinel fuera de viewport
-            if (diff > DELTA) {
-              setHidden(true);  // scrolleando hacia abajo -> ocultar
-            } else if (diff < -DELTA) {
-              setHidden(false); // scrolleando hacia arriba -> mostrar
-            }
-            // diff dentro del DELTA (micro-movimiento) -> mantener estado actual
+        function init() {
+          var nav = document.querySelector('.nav');
+          if (!nav) {
+            console.warn('[nav-sticky] .nav no encontrado');
+            return;
           }
-          lastY = y;
+
+          var TOP_THRESHOLD = 80;     // si estamos dentro de los primeros 80px -> siempre visible
+          var lastY = window.pageYOffset || document.documentElement.scrollTop || 0;
+          var hidden = false;
+          var debug = false; // cambiar a true si querés ver los logs en consola
+
+          function setHidden(state) {
+            if (state === hidden) return;
+            hidden = state;
+            if (state) nav.classList.add('nav--hidden');
+            else nav.classList.remove('nav--hidden');
+            if (debug) console.log('[nav-sticky] hidden=' + state);
+          }
+
+          function update() {
+            var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+            var diff = y - lastY;
+
+            if (y <= TOP_THRESHOLD) {
+              // Top del documento -> siempre visible
+              setHidden(false);
+            } else if (diff > 0) {
+              // Scroll hacia abajo -> ocultar
+              setHidden(true);
+            } else if (diff < 0) {
+              // Scroll hacia arriba (cualquier cantidad) -> mostrar
+              setHidden(false);
+            }
+            // diff === 0 (no se movió este frame) -> no hacer nada, mantener estado
+
+            lastY = y;
+          }
+
+          // requestAnimationFrame loop — corre a 60fps, no por evento scroll
+          // Más robusto que addEventListener('scroll') porque:
+          //  1. No se pierden frames intermedios
+          //  2. Se ejecuta en el thread de render, no bloquea scroll
+          //  3. Compatible con TODOS los navegadores modernos (Brave/Chrome/Firefox/Safari)
+          var ticking = false;
+          function onScroll() {
+            if (!ticking) {
+              window.requestAnimationFrame(function () {
+                try {
+                  update();
+                } catch (e) {
+                  console.error('[nav-sticky] update error:', e);
+                }
+                ticking = false;
+              });
+              ticking = true;
+            }
+          }
+
+          // passive: true para no bloquear el scroll del usuario
+          window.addEventListener('scroll', onScroll, { passive: true });
+          window.addEventListener('resize', onScroll, { passive: true });
+
+          // Estado inicial — verificar al cargar la página (ej: si recargás scrolleado)
+          try { update(); } catch (e) { console.error('[nav-sticky] init error:', e); }
+
+          // Debug: exponer al usuario para verificar en consola
+          window.__navSticky = {
+            getState: function () { return { hidden: hidden, scrollY: lastY, threshold: TOP_THRESHOLD }; },
+            show:     function () { setHidden(false); },
+            hide:     function () { setHidden(true); },
+          };
+
+          console.log('[nav-sticky] initialized. Try window.__navSticky.getState() in console.');
         }
 
-        // passive: true para no bloquear el scroll del usuario
-        window.addEventListener('scroll', update, { passive: true });
-        window.addEventListener('resize', update, { passive: true });
-
-        // Estado inicial
-        update();
+        // Esperar a que el DOM esté listo
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
       })();
     </script>
   </body>

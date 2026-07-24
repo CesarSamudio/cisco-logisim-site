@@ -165,7 +165,13 @@ const team = [
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Sube el recorte para que se vea más cara y menos cuello */
+  object-position: center 28%;
   display: block;
+}
+/* Ajuste individual para Nuritz: su foto se ve mucho cuello, la bajamos más */
+.team-card__photo:has(img[src*="nuritz"]) .team-card__img {
+  object-position: center 38%;
 }
 
 .team-card__placeholder {

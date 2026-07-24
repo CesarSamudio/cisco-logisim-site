@@ -7,7 +7,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   current="formulario"
 >
   <section id="formulario" class="section forms-section">
-    <div class="container">
+    <div class="container forms-container">
       <span class="section__eyebrow">ENCUESTA</span>
       <h1 class="section__title">FORMULARIO SOBRE LAS APLICACIONES</h1>
       <p class="forms-lead">
@@ -28,9 +28,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </figure>
     </div>
   </section>
-</BaseLayout>
-
-<style>
+.forms-section {
+  padding-top: var(--space-10);
+  /* Centrar todo el bloque visualmente */
+  text-align: center;
+}
+.forms-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .section__eyebrow {
   display: inline-block;
   padding: 0.4rem 1.1rem;
@@ -54,9 +61,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   font-style: italic;
   font-weight: 500;
   max-width: 800px;
-}
-.forms-section {
-  padding-top: var(--space-10);
+  margin-inline: auto;
 }
 .forms-lead {
   font-size: var(--fs-lg);
@@ -64,6 +69,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   margin-bottom: var(--space-7);
   max-width: 700px;
   color: var(--color-text-muted);
+  margin-inline: auto;
 }
 .forms-qr {
   display: flex;
