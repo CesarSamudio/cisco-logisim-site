@@ -70,28 +70,42 @@ const platformDownloads = [
   current="logisim"
 >
 
-  <!-- Hero — Blobs morados -->
-  <section class="hero">
+  <!-- Hero — Video de fondo + copy promocional -->
+  <section class="hero hero--video">
+      <video
+        class="hero__video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        poster="/images/logisim/hero-poster.jpg"
+        aria-hidden="true"
+      >
+        <source src="/videos/hero-logisim.mp4" type="video/mp4" />
+      </video>
+      <div class="hero__overlay" aria-hidden="true"></div>
       <div class="hero__bg" aria-hidden="true">
         <div class="hero__blob hero__blob--1"></div>
         <div class="hero__blob hero__blob--2"></div>
-        <div class="hero__blob hero__blob--3"></div>
-        <div class="hero__blob hero__blob--4"></div>
       </div>
       <div class="container hero__inner">
-        <span class="hero__eyebrow">Aplicación #2 · Simulador de circuitos</span>
-      <h1 class="hero__title">Logisim Evolution.</h1>
-      <p class="hero__subtitle">
-        Herramienta educativa open source para diseñar y simular circuitos lógicos digitales.
-        Construida en Java, multiplataforma, con soporte para VHDL, cronogramas y una librería
-        gigante de componentes.
+      <h1 class="hero__title hero__title--light">DISEÑÁ CIRCUITOS<br/>QUE PIENSAN SOLOS.</h1>
+      <p class="hero__subtitle hero__subtitle--light">
+        El simulador de circuitos lógicos más usado en universidades de todo el mundo.
+        Colocá compuertas, switches y LEDs en un canvas infinito, y mirá cómo se enciende
+        la luz al instante. <strong>Sin cables. Sin quemarte los dedos. Sin gastar un peso.</strong>
       </p>
       <div class="hero__actions">
-        <Button href="#introduccion" text="Comenzar lectura" variant="primary" size="lg" />
-        <Button href="#videos" text="Ver videos" variant="outline" size="lg" />
+        <Button href="#introduccion" text="PROBAR LOGISIM AHORA" variant="primary" size="lg" />
+        <Button href="#videos" text="VER CIRCUITOS EN ACCIÓN" variant="ghost" size="lg" />
       </div>
-      <div class="hero__img-wrap">
-        <img src="/images/logisim/hero.jpg" alt="Captura oficial de Logisim Evolution mostrando un circuito complejo" class="hero__img" />
+      <div class="hero__scroll-hint" aria-hidden="true">
+        <span>Desplazate para explorar</span>
+        <svg width="14" height="22" viewBox="0 0 14 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0.5" y="0.5" width="13" height="21" rx="6.5" stroke="white" stroke-opacity="0.6"/>
+          <circle class="hero__scroll-dot" cx="7" cy="7" r="2" fill="white"/>
+        </svg>
       </div>
     </div>
   </section>
@@ -357,48 +371,137 @@ const platformDownloads = [
 </BaseLayout>
 
 <style>
-/* ===== HERO — Blobs morados MUY notorios estilo Genway ===== */
-.hero { position: relative; padding-block: var(--space-10) var(--space-7); overflow: hidden; }
-.hero__bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+/* ===== HERO — Video de fondo + textos claros ===== */
+.hero {
+  position: relative;
+  padding-block: var(--space-9) var(--space-8);
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero--video { padding-block: var(--space-10) var(--space-8); }
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  background: #0f0c28;
+}
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg,
+      rgba(15, 12, 40, 0.55) 0%,
+      rgba(15, 12, 40, 0.75) 50%,
+      rgba(15, 12, 40, 0.85) 100%),
+    radial-gradient(ellipse at center, rgba(49, 36, 107, 0.35) 0%, transparent 70%);
+}
+.hero__bg { position: absolute; inset: 0; pointer-events: none; z-index: -1; }
 .hero__blob {
   position: absolute;
   border-radius: 50%;
   filter: blur(110px);
+  opacity: 0.35;
 }
 .hero__blob--1 {
   width: 680px; height: 680px;
   background: radial-gradient(circle, var(--mesh-violet-2) 0%, transparent 70%);
   top: -160px; left: -140px;
-  opacity: 0.85;
 }
 .hero__blob--2 {
   width: 520px; height: 520px;
   background: radial-gradient(circle, var(--mesh-violet-3) 0%, transparent 70%);
   bottom: -120px; right: 5%;
-  opacity: 0.70;
-}
-.hero__blob--3 {
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, var(--mesh-violet-1) 0%, transparent 70%);
-  top: 30%; right: -80px;
-  opacity: 0.60;
-}
-.hero__blob--4 {
-  width: 700px; height: 500px;
-  background: radial-gradient(ellipse, rgba(139, 92, 246, 0.40) 0%, transparent 70%);
-  top: 20%; left: 50%;
-  transform: translateX(-50%);
-  opacity: 0.55;
 }
 .hero__inner { position: relative; z-index: 1; text-align: center; max-width: 900px; }
-.hero__eyebrow {
-  display: inline-block; padding: 0.5rem 1.25rem;
-  background: rgba(255, 255, 255, 0.70);
-  color: var(--color-accent-deep);
-  border: 1px solid rgba(124, 93, 250, 0.35);
-  backdrop-filter: blur(18px) saturate(200%);
-  -webkit-backdrop-filter: blur(18px) saturate(200%);
-  border-radius: var(--radius-pill); font-size: var(--fs-sm); font-weight: 600;
+
+.hero__title {
+  margin-bottom: var(--space-5);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--color-text);
+}
+.hero__title--light {
+  color: white;
+  font-weight: 600;
+  text-shadow: 0 4px 24px rgba(15, 12, 40, 0.55);
+  font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.hero__subtitle {
+  font-size: var(--fs-xl);
+  max-width: 680px;
+  margin: 0 auto var(--space-6);
+  line-height: 1.5;
+  padding-inline: var(--space-2);
+  color: var(--color-text-muted);
+}
+.hero__subtitle--light {
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 400;
+  text-shadow: 0 2px 12px rgba(15, 12, 40, 0.40);
+}
+.hero__subtitle--light strong { color: white; font-weight: 700; }
+
+.hero__actions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-7);
+}
+.hero__scroll-hint {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.hero__scroll-dot {
+  animation: scrollBob 1.8s var(--ease-out) infinite;
+}
+@keyframes scrollBob {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(6px); opacity: 0.6; }
+}
+
+.hero__img-wrap { max-width: 900px; margin: var(--space-7) auto 0; }
+.hero__img {
+  width: 100%;
+  max-height: 480px;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(124, 93, 250, 0.20);
+  background: var(--color-accent-soft);
+  box-shadow: 0 16px 40px rgba(49, 36, 107, 0.18);
+}
+.intro-img {
+  width: 100%;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(124, 93, 250, 0.20);
+  box-shadow: 0 12px 36px rgba(49, 36, 107, 0.14);
+}
+.gallery__img {
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(124, 93, 250, 0.15);
+  background: var(--color-accent-soft);
+  padding: var(--space-3);
+}
+
+/* ===== SECTION EYEBROWS glass ===== */
   margin-bottom: var(--space-5);
   box-shadow:
     0 6px 20px rgba(124, 93, 250, 0.20),

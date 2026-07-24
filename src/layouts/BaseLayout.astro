@@ -33,39 +33,61 @@ const {
 
     <script>
       // ===== HEADER INTELIGENTE: oculta al bajar, muestra al subir =====
+      // Sentinel en el top del <main>: cuando es visible -> nav visible (estamos arriba).
+      // Cuando no es visible -> nav oculto por defecto.
+      // Scroll direction detector: si el sentinel salió por arriba y el usuario scrollea
+      // hacia abajo, ocultar. Si el usuario scrollea hacia arriba (y el sentinel sigue fuera),
+      // mostrar de nuevo, así puede llegar a "Inicio" sin tener que ir al top absoluto.
       (() => {
         const nav = document.querySelector('.nav');
         if (!nav) return;
 
+        // Sentinel: un div invisible de 1px justo después del nav.
+        // Cuando la parte SUPERIOR del viewport pasa el sentinel, sabemos que el usuario
+        // ha scrolleado fuera del área del header.
+        const sentinel = document.createElement('div');
+        sentinel.setAttribute('aria-hidden', 'true');
+        sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none;';
+        document.body.prepend(sentinel);
+
+        const rectOf = (el) => el.getBoundingClientRect();
+
+        let hidden = false;
         let lastY = window.scrollY;
-        let ticking = false;
-        const TOP_THRESHOLD = 8;       // si está muy arriba, siempre visible
-        const DELTA = 6;               // umbral mínimo para detectar dirección
+        const DELTA = 4; // píxeles mínimos para considerar cambio de dirección
+
+        const setHidden = (state) => {
+          if (state === hidden) return;
+          hidden = state;
+          nav.classList.toggle('nav--hidden', state);
+        };
 
         const update = () => {
           const y = window.scrollY;
           const diff = y - lastY;
 
-          if (y <= TOP_THRESHOLD) {
-            // Siempre visible en el top absoluto
-            nav.classList.remove('nav--hidden');
-          } else if (diff > DELTA) {
-            // Scroll hacia abajo → ocultar
-            nav.classList.add('nav--hidden');
-          } else if (diff < -DELTA) {
-            // Scroll hacia arriba (aunque sea un poquito) → mostrar
-            nav.classList.remove('nav--hidden');
+          // Posición del sentinel relativa al viewport
+          const sentinelTop = rectOf(sentinel).top;
+
+          if (sentinelTop >= 0) {
+            // El sentinel está visible -> estamos en el top -> siempre mostrar
+            setHidden(false);
+          } else {
+            // El sentinel ya pasó por arriba del viewport
+            if (diff > DELTA) {
+              setHidden(true);  // bajando -> ocultar
+            } else if (diff < -DELTA) {
+              setHidden(false); // subiendo -> mostrar
+            }
+            // Si diff está dentro de DELTA (micro-scroll), mantener estado anterior
           }
           lastY = y;
-          ticking = false;
         };
 
-        window.addEventListener('scroll', () => {
-          if (!ticking) {
-            window.requestAnimationFrame(update);
-            ticking = true;
-          }
-        }, { passive: true });
+        // passive listener para no bloquear scroll
+        window.addEventListener('scroll', update, { passive: true });
+        // Llamada inicial para estado correcto
+        update();
       })();
     </script>
   </body>
