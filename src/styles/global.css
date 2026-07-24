@@ -55,11 +55,12 @@ main, nav, footer { position: relative; z-index: 1; }
 
 /* ===== NAV: transición hide-on-scroll (aplicada por BaseLayout) ===== */
 .nav {
-  transition: transform 280ms var(--ease-out);
-  will-change: transform;
+  transition: top 280ms var(--ease-out), transform 280ms var(--ease-out);
+  will-change: top, transform;
 }
 .nav--hidden {
-  transform: translateY(-100%);
+  transform: translateY(-100%) !important;
+  top: -72px !important;
 }
 /* El nav queda fuera del flujo cuando está oculto, evitando la franja vacía */
 .nav--hidden { box-shadow: none; }
