@@ -30,5 +30,43 @@ const {
       <slot />
     </main>
     <Footer />
+
+    <script>
+      // ===== HEADER INTELIGENTE: oculta al bajar, muestra al subir =====
+      (() => {
+        const nav = document.querySelector('.nav');
+        if (!nav) return;
+
+        let lastY = window.scrollY;
+        let ticking = false;
+        const TOP_THRESHOLD = 8;       // si está muy arriba, siempre visible
+        const DELTA = 6;               // umbral mínimo para detectar dirección
+
+        const update = () => {
+          const y = window.scrollY;
+          const diff = y - lastY;
+
+          if (y <= TOP_THRESHOLD) {
+            // Siempre visible en el top absoluto
+            nav.classList.remove('nav--hidden');
+          } else if (diff > DELTA) {
+            // Scroll hacia abajo → ocultar
+            nav.classList.add('nav--hidden');
+          } else if (diff < -DELTA) {
+            // Scroll hacia arriba (aunque sea un poquito) → mostrar
+            nav.classList.remove('nav--hidden');
+          }
+          lastY = y;
+          ticking = false;
+        };
+
+        window.addEventListener('scroll', () => {
+          if (!ticking) {
+            window.requestAnimationFrame(update);
+            ticking = true;
+          }
+        }, { passive: true });
+      })();
+    </script>
   </body>
 </html>

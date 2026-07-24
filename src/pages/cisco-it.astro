@@ -67,28 +67,54 @@ const videos = [
   current="cisco-it"
 >
 
-  <!-- Hero — Blobs morados estilo Genway -->
-  <section class="hero">
+  <!-- Hero — Video de fondo + Colegio arriba + copy promocional -->
+  <section class="hero hero--video">
+      <!-- Video de fondo: si no existe /videos/hero-cisco.mp4, el poster hace de fallback -->
+      <video
+        class="hero__video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        poster="/images/cisco/hero-poster.jpg"
+        aria-hidden="true"
+      >
+        <source src="/videos/hero-cisco.mp4" type="video/mp4" />
+      </video>
+      <!-- Tintado oscuro para que el texto blanco sea legible sobre cualquier video -->
+      <div class="hero__overlay" aria-hidden="true"></div>
+      <!-- Blobs sutiles (opcional, para cohesión con el resto del sitio) -->
       <div class="hero__bg" aria-hidden="true">
         <div class="hero__blob hero__blob--1"></div>
         <div class="hero__blob hero__blob--2"></div>
-        <div class="hero__blob hero__blob--3"></div>
-        <div class="hero__blob hero__blob--4"></div>
       </div>
       <div class="container hero__inner">
-        <span class="hero__eyebrow">Aplicación #1 · Simulador de hardware</span>
-      <h1 class="hero__title">Cisco IT Essentials<br/>Virtual Desktop.</h1>
-      <p class="hero__subtitle">
-        Simulador basado en Flash/ActionScript del curso IT Essentials de Cisco Networking Academy.
-        Permite practicar el ensamblaje de un PC y la configuración de componentes sin riesgo de dañar
-        hardware real.
+        <!-- Pill del colegio arriba: visible pero discreta -->
+        <a class="hero__school" href="/" aria-label="Colegio Ingeniero Tomás Guardia — Inicio">
+          <span class="hero__school-logo" aria-hidden="true">
+            <img src="/images/escudo/escudo-tomas-guardia.jpg" alt="" />
+          </span>
+          <span class="hero__school-name">Colegio Ingeniero Tomás Guardia</span>
+        </a>
+
+        <span class="hero__eyebrow hero__eyebrow--light">APLICACIÓN #1 · SIMULADOR DE HARDWARE</span>
+      <h1 class="hero__title hero__title--light">ENSAMBLÁ TU PC<br/>SIN ROMPER NADA.</h1>
+      <p class="hero__subtitle hero__subtitle--light">
+        Simulador del curso IT Essentials de Cisco Networking Academy.
+        Practicá ensamblaje, configuración y diagnóstico de componentes sin riesgo,
+        sin cables y sin gastar un peso en hardware.
       </p>
       <div class="hero__actions">
-        <Button href="#introduccion" text="Comenzar lectura" variant="primary" size="lg" />
-        <Button href="#videos" text="Ver videos" variant="outline" size="lg" />
+        <Button href="#introduccion" text="PROBAR EL SIMULADOR AHORA" variant="primary" size="lg" />
+        <Button href="#manual" text="VER GALERÍA DE PASOS" variant="ghost" size="lg" />
       </div>
-      <div class="hero__img-wrap">
-              <img src="/images/cisco/gal-pantalla-inicio.png" alt="Pantalla de inicio del Cisco IT Essentials Virtual Desktop" class="hero__img" />
+      <div class="hero__scroll-hint" aria-hidden="true">
+        <span>Desplazate para explorar</span>
+        <svg width="14" height="22" viewBox="0 0 14 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0.5" y="0.5" width="13" height="21" rx="6.5" stroke="white" stroke-opacity="0.6"/>
+          <circle class="hero__scroll-dot" cx="7" cy="7" r="2" fill="white"/>
+        </svg>
       </div>
     </div>
   </section>
@@ -99,7 +125,7 @@ const videos = [
       <div class="intro-grid">
         <div>
           <span class="section__eyebrow">01 · Introducción y Propósito</span>
-          <h2 class="section__title">¿Qué es exactamente?</h2>
+          <h2 class="section__title">¿QUÉ ES EXACTAMENTE?</h2>
           <p class="intro-lead">
             <strong>Cisco IT Essentials Virtual Desktop</strong> es una aplicación interactiva que forma
             parte del curso oficial <em>IT Essentials</em> de Cisco Networking Academy. Su función es
@@ -133,7 +159,7 @@ const videos = [
   <section id="videos" class="section section--purple videos-section">
       <div class="container">
         <span class="purple__eyebrow">02 · Videos demostrativos</span>
-        <h2 class="videos-title">Mira el simulador en acción.</h2>
+        <h2 class="videos-title">MIRA EL SIMULADOR EN ACCIÓN.</h2>
         <p class="videos-desc">
           Videos de YouTube embebidos que se reproducen directamente aquí. Puedes ver tutoriales oficiales
           y demostraciones del ensamblaje paso a paso del Cisco IT Essentials Virtual Desktop.
@@ -157,7 +183,7 @@ const videos = [
   <section class="section install-section">
     <div class="container container-narrow">
       <span class="section__eyebrow">03 · Guía de Descarga e Instalación</span>
-      <h2 class="section__title">De descarga a primera ejecución,<br/>en cuatro pasos.</h2>
+      <h2 class="section__title">DE DESCARGA A PRIMERA EJECUCIÓN,<br/>EN CUATRO PASOS.</h2>
       <p class="section__lead">
         El proceso es seguro si obtienes los archivos desde fuentes oficiales.
         Aquí tienes el procedimiento detallado.
@@ -197,7 +223,7 @@ const videos = [
   <section class="section section--alt pros-section">
     <div class="container">
       <span class="section__eyebrow">04 · Ventajas y Limitaciones</span>
-      <h2 class="section__title">Lo bueno, lo malo y lo técnico.</h2>
+      <h2 class="section__title">LO BUENO, LO MALO Y LO TÉCNICO.</h2>
       <p class="section__lead">
         Evaluamos la herramienta desde tres perspectivas: educativa, técnica y de usabilidad.
       </p>
@@ -246,7 +272,7 @@ const videos = [
   <section class="section section--alt reqs-section">
     <div class="container">
       <span class="section__eyebrow">05 · Requisitos del Sistema</span>
-      <h2 class="section__title">Lo que necesitas tener en tu máquina.</h2>
+      <h2 class="section__title">LO QUE NECESITAS TENER EN TU MÁQUINA.</h2>
       <p class="section__lead">
         Requisitos modestos: la aplicación original en Flash era muy ligera, y Ruffle la ejecuta
         de forma eficiente incluso en equipos modestos.
@@ -287,10 +313,10 @@ const videos = [
   </section>
 
   <!-- 5. Manual de Funcionamiento Básico -->
-  <section class="section manual-section">
+  <section id="manual" class="section manual-section">
     <div class="container">
       <span class="section__eyebrow">06 · Manual de Funcionamiento</span>
-      <h2 class="section__title">Galería en 13 pasos.</h2>
+      <h2 class="section__title">GALERÍA EN 13 PASOS.</h2>
       <p class="section__lead">
         Sigue esta galería visual para completar el ensamblaje completo de un PC de escritorio,
         desde el case vacío hasta el primer arranque. Cada imagen muestra una etapa del proceso.
@@ -314,56 +340,172 @@ const videos = [
   </BaseLayout>
 
 <style>
-/* ===== HERO — Blobs morados MUY notorios estilo Genway ===== */
-.hero { position: relative; padding-block: var(--space-10) var(--space-7); overflow: hidden; }
-.hero__bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+/* ===== HERO — Video de fondo + Colegio arriba + textos claros ===== */
+.hero {
+  position: relative;
+  padding-block: var(--space-9) var(--space-8);
+  overflow: hidden;
+  isolation: isolate;  /* stacking context para que el video no se filtre */
+}
+.hero--video { padding-block: var(--space-10) var(--space-8); }
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  background: #0f0c28;  /* color de fondo mientras carga */
+}
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  /* Gradiente oscuro violáceo: denso en el centro, transparente arriba para legibilidad */
+  background:
+    linear-gradient(180deg,
+      rgba(15, 12, 40, 0.55) 0%,
+      rgba(15, 12, 40, 0.75) 50%,
+      rgba(15, 12, 40, 0.85) 100%),
+    radial-gradient(ellipse at center, rgba(49, 36, 107, 0.35) 0%, transparent 70%);
+}
+.hero__bg { position: absolute; inset: 0; pointer-events: none; z-index: -1; }
 .hero__blob {
   position: absolute;
   border-radius: 50%;
   filter: blur(110px);
+  opacity: 0.35;
 }
 .hero__blob--1 {
   width: 680px; height: 680px;
   background: radial-gradient(circle, var(--mesh-violet-2) 0%, transparent 70%);
   top: -160px; left: -140px;
-  opacity: 0.85;
 }
 .hero__blob--2 {
   width: 520px; height: 520px;
   background: radial-gradient(circle, var(--mesh-violet-3) 0%, transparent 70%);
   bottom: -120px; right: 5%;
-  opacity: 0.70;
-}
-.hero__blob--3 {
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, var(--mesh-violet-1) 0%, transparent 70%);
-  top: 30%; right: -80px;
-  opacity: 0.60;
-}
-.hero__blob--4 {
-  width: 700px; height: 500px;
-  background: radial-gradient(ellipse, rgba(139, 92, 246, 0.40) 0%, transparent 70%);
-  top: 20%; left: 50%;
-  transform: translateX(-50%);
-  opacity: 0.55;
 }
 .hero__inner { position: relative; z-index: 1; text-align: center; max-width: 900px; }
-.hero__eyebrow {
-  display: inline-block; padding: 0.5rem 1.25rem;
-  background: rgba(255, 255, 255, 0.70);
+
+/* Pill del colegio — arriba del H1, discreta y centrada */
+.hero__school {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0.4rem 1.1rem 0.4rem 0.4rem;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: var(--radius-pill);
   color: var(--color-accent-deep);
-  border: 1px solid rgba(124, 93, 250, 0.35);
-  backdrop-filter: blur(18px) saturate(200%);
-  -webkit-backdrop-filter: blur(18px) saturate(200%);
-  border-radius: var(--radius-pill); font-size: var(--fs-sm); font-weight: 600;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
   margin-bottom: var(--space-5);
   box-shadow:
-    0 6px 20px rgba(124, 93, 250, 0.20),
-    inset 0 1px 0 rgba(255, 255, 255, 0.70);
+    0 6px 20px rgba(15, 12, 40, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.50);
+  transition: background var(--t-fast), transform var(--t-fast);
 }
-.hero__title { margin-bottom: var(--space-5); font-style: italic; font-weight: 500; }
-.hero__subtitle { font-size: var(--fs-xl); max-width: 680px; margin: 0 auto var(--space-6); line-height: 1.5; padding-inline: var(--space-2); }
-.hero__actions { display: flex; gap: var(--space-3); justify-content: center; flex-wrap: wrap; }
+.hero__school:hover {
+  background: white;
+  color: var(--color-accent-deep);
+  transform: translateY(-1px);
+}
+.hero__school-logo {
+  width: 36px; height: 36px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: var(--radius-pill);
+  background: white;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(15, 12, 40, 0.25);
+}
+.hero__school-logo svg { width: 100%; height: 100%; display: block; }
+.hero__school-logo img { width: 100%; height: 100%; object-fit: cover; }
+.hero__school-name {
+  letter-spacing: 0.01em;
+  padding-right: var(--space-2);
+}
+
+/* Eyebrow — variante clara para fondo oscuro */
+.hero__eyebrow {
+  display: inline-block; padding: 0.5rem 1.25rem;
+  background: rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(18px) saturate(200%);
+  -webkit-backdrop-filter: blur(18px) saturate(200%);
+  border-radius: var(--radius-pill); font-size: var(--fs-sm); font-weight: 700;
+  letter-spacing: 0.10em;
+  margin-bottom: var(--space-5);
+  box-shadow:
+    0 6px 20px rgba(15, 12, 40, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+.hero__eyebrow--light { color: white; }
+
+/* H1 — variante clara para fondo oscuro */
+.hero__title {
+  margin-bottom: var(--space-5);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--color-text);
+}
+.hero__title--light {
+  color: white;
+  font-weight: 600;
+  text-shadow: 0 4px 24px rgba(15, 12, 40, 0.55);
+  font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+/* Subtítulo — variante clara */
+.hero__subtitle {
+  font-size: var(--fs-xl);
+  max-width: 680px;
+  margin: 0 auto var(--space-6);
+  line-height: 1.5;
+  padding-inline: var(--space-2);
+  color: var(--color-text-muted);
+}
+.hero__subtitle--light {
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 400;
+  text-shadow: 0 2px 12px rgba(15, 12, 40, 0.40);
+}
+
+.hero__actions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-7);
+}
+
+/* Hint de scroll */
+.hero__scroll-hint {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.hero__scroll-dot {
+  animation: scrollBob 1.8s var(--ease-out) infinite;
+}
+@keyframes scrollBob {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(6px); opacity: 0.6; }
+}
+
 .hero__img-wrap { max-width: 900px; margin: var(--space-7) auto 0; }
 .hero__img {
   width: 100%;

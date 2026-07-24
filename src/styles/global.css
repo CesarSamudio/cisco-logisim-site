@@ -53,6 +53,17 @@ body::after {
 
 main, nav, footer { position: relative; z-index: 1; }
 
+/* ===== NAV: transición hide-on-scroll (aplicada por BaseLayout) ===== */
+.nav {
+  transition: transform 280ms var(--ease-out);
+  will-change: transform;
+}
+.nav--hidden {
+  transform: translateY(-100%);
+}
+/* El nav queda fuera del flujo cuando está oculto, evitando la franja vacía */
+.nav--hidden { box-shadow: none; }
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   font-weight: 600;
