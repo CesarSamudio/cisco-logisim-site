@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Formulario — Cisco IT · Logisim"
+  description="Escaneá el código QR o abrí el link para responder el cuestionario sobre Cisco IT Essentials y Logisim Evolution."
+  current="formulario"
+>
+  <section id="formulario" class="section forms-section">
+    <div class="container">
+      <span class="section__eyebrow">ENCUESTA</span>
+      <h1 class="section__title">FORMULARIO SOBRE LAS APLICACIONES</h1>
+      <p class="forms-lead">
+        Lea toda la página antes de responder. Escaneá el QR con tu celular
+        para abrir el cuestionario, o usá el botón de abajo si estás en una
+        computadora.
+      </p>
+
+      <figure class="forms-qr">
+        <img
+          src="/images/forms/qr-cuestionario.png"
+          alt="Código QR del formulario de Google sobre Cisco IT y Logisim"
+          class="forms-qr__img"
+        />
+        <figcaption class="forms-qr__cap">
+          Escaneá con tu celular para abrir el cuestionario
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+.section__eyebrow {
+  display: inline-block;
+  padding: 0.4rem 1.1rem;
+  background: rgba(237, 229, 255, 0.85);
+  color: var(--color-accent-deep);
+  border: 1px solid rgba(124, 93, 250, 0.28);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+  box-shadow:
+    0 4px 14px rgba(124, 93, 250, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+.section__title {
+  margin-bottom: var(--space-7);
+  font-style: italic;
+  font-weight: 500;
+  max-width: 800px;
+}
+.forms-section {
+  padding-top: var(--space-10);
+}
+.forms-lead {
+  font-size: var(--fs-lg);
+  line-height: 1.6;
+  margin-bottom: var(--space-7);
+  max-width: 700px;
+  color: var(--color-text-muted);
+}
+.forms-qr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  margin: 0;
+}
+.forms-qr__img {
+  max-width: 320px;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  padding: var(--space-4);
+  background: white;
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(124, 93, 250, 0.20);
+  box-shadow: 0 16px 40px rgba(49, 36, 107, 0.18);
+}
+.forms-qr__cap {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+</style>
