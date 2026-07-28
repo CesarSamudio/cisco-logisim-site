@@ -35,7 +35,22 @@ const base = import.meta.env.BASE_URL;
     <audio id="ui-sound" src={`${import.meta.env.BASE_URL}/audio/ui-sound.mp3`} preload="auto" aria-hidden="true"></audio>
 
     <script is:inline>
-      // Sonido UI global: feedback corto y discreto para controles accionables.
+      // ── Video lifecycle: pause when off-screen, play when visible ──────────
+      (function () {
+        const IO = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              const v = e.target;
+              if (e.isIntersecting) { v.play().catch(() => {}); }
+              else                  { v.pause(); }
+            });
+          },
+          { threshold: 0.1 }
+        );
+        document.querySelectorAll('video[autoplay]').forEach((v) => IO.observe(v));
+      })();
+
+      // ── Sonido UI global: feedback corto y discreto para controles accionables.
       const uiAudio = document.querySelector('#ui-sound');
       const uiSelector = 'a, button, summary, [role="button"]';
 
