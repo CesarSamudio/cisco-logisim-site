@@ -1,4 +1,5 @@
 ---
+const base = import.meta.env.BASE_URL;
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 <BaseLayout
@@ -18,7 +19,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       <figure class="forms-qr">
         <img
-          src="/images/forms/qr-cuestionario.png"
+          src={base + '/images/forms/qr-cuestionario.png'}
           alt="Código QR del formulario de Google sobre Cisco IT y Logisim"
           class="forms-qr__img"
         />

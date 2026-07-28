@@ -1,4 +1,5 @@
 ---
+const base = import.meta.env.BASE_URL;
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
 import ImgPlaceholder from '../components/ImgPlaceholder.astro';
@@ -23,20 +24,20 @@ const cons = [
 ];
 
 const installSteps = [
-  { title: 'Elige tu plataforma', desc: 'Visita https://github.com/logisim-evolution/logisim-evolution/releases y descarga el instalador correspondiente a tu sistema operativo (MSI para Windows, DMG para macOS, .deb/.rpm/.snap para Linux).', img: '/images/logisim/inst-01-plataforma.jpg' },
-  { title: 'Instala el paquete', desc: 'Ejecuta el instalador con permisos de administrador (Windows/Linux). En macOS, arrastra el .app a la carpeta Aplicaciones y ábrelo desde Preferencias del Sistema la primera vez para aprobarlo.', img: '/images/logisim/inst-02-instala.jpg' },
-  { title: 'Verifica Java (opcional)', desc: 'Si usas el JAR portable (logisim-evolution-*-all.jar), asegúrate de tener Java 21+ instalado. Puedes verificar con: java -version en la terminal.', img: '/images/logisim/inst-03-java.jpg' },
-  { title: 'Primer lanzamiento', desc: 'Abre la aplicación. Verás un canvas vacío. Coloca un Input, una compuerta AND y un Output desde el panel de componentes para crear tu primer circuito.', img: '/images/logisim/inst-04-launch.jpg' },
+  { title: 'Elige tu plataforma', desc: 'Visita https://github.com/logisim-evolution/logisim-evolution/releases y descarga el instalador correspondiente a tu sistema operativo (MSI para Windows, DMG para macOS, .deb/.rpm/.snap para Linux).', img: base + '/images/logisim/inst-01-plataforma.jpg' },
+  { title: 'Instala el paquete', desc: 'Ejecuta el instalador con permisos de administrador (Windows/Linux). En macOS, arrastra el .app a la carpeta Aplicaciones y ábrelo desde Preferencias del Sistema la primera vez para aprobarlo.', img: base + '/images/logisim/inst-02-instala.jpg' },
+  { title: 'Verifica Java (opcional)', desc: 'Si usas el JAR portable (logisim-evolution-*-all.jar), asegúrate de tener Java 21+ instalado. Puedes verificar con: java -version en la terminal.', img: base + '/images/logisim/inst-03-java.jpg' },
+  { title: 'Primer lanzamiento', desc: 'Abre la aplicación. Verás un canvas vacío. Coloca un Input, una compuerta AND y un Output desde el panel de componentes para crear tu primer circuito.', img: base + '/images/logisim/inst-04-launch.jpg' },
 ];
 
 const galleryImages = [
-  { label: 'IMG - File New', caption: 'Crear un nuevo proyecto: File → New', ratio: '4/3', src: '/images/logisim/gal-01-new.jpg' },
-  { label: 'IMG - Panel componentes', caption: 'Panel izquierdo con componentes disponibles', ratio: 'auto', src: '/images/logisim/gal-02-panel.jpg' },
-  { label: 'IMG - Input Pin', caption: 'Colocar un pin de entrada (Input)', ratio: '4/3', src: '/images/logisim/gal-03-input.jpg' },
-  { label: 'IMG - AND gate', caption: 'Insertar compuerta AND desde la librería Gates', ratio: '4/3', src: '/images/logisim/gal-04-and.jpg' },
-  { label: 'IMG - Cableado', caption: 'Conexión: Input → AND → Output', ratio: '4/3', src: '/images/logisim/gal-05-cableado.jpg' },
-  { label: 'IMG - Toggle switches', caption: 'Cambiar el estado de los switches con clic', ratio: '4/3', src: '/images/logisim/gal-06-toggle.jpg' },
-  { label: 'IMG - LED Output', caption: 'Observar el LED encenderse según la lógica', ratio: '4/3', src: '/images/logisim/gal-07-led.jpg' },
+  { label: 'IMG - File New', caption: 'Crear un nuevo proyecto: File → New', ratio: '4/3', src: base + '/images/logisim/gal-01-new.jpg' },
+  { label: 'IMG - Panel componentes', caption: 'Panel izquierdo con componentes disponibles', ratio: 'auto', src: base + '/images/logisim/gal-02-panel.jpg' },
+  { label: 'IMG - Input Pin', caption: 'Colocar un pin de entrada (Input)', ratio: '4/3', src: base + '/images/logisim/gal-03-input.jpg' },
+  { label: 'IMG - AND gate', caption: 'Insertar compuerta AND desde la librería Gates', ratio: '4/3', src: base + '/images/logisim/gal-04-and.jpg' },
+  { label: 'IMG - Cableado', caption: 'Conexión: Input → AND → Output', ratio: '4/3', src: base + '/images/logisim/gal-05-cableado.jpg' },
+  { label: 'IMG - Toggle switches', caption: 'Cambiar el estado de los switches con clic', ratio: '4/3', src: base + '/images/logisim/gal-06-toggle.jpg' },
+  { label: 'IMG - LED Output', caption: 'Observar el LED encenderse según la lógica', ratio: '4/3', src: base + '/images/logisim/gal-07-led.jpg' },
 ];
 
 const requirements = [
@@ -79,10 +80,10 @@ const platformDownloads = [
         loop
         playsinline
         preload="metadata"
-        poster="/images/logisim/hero-poster.jpg"
+        poster={base + '/images/logisim/hero-poster.jpg'}
         aria-hidden="true"
       >
-        <source src="/videos/hero-logisim.mp4" type="video/mp4" />
+        <source src={base + '/videos/hero-logisim.mp4'} type="video/mp4" />
       </video>
       <div class="hero__overlay" aria-hidden="true"></div>
       <div class="hero__bg" aria-hidden="true">
@@ -140,7 +141,7 @@ const platformDownloads = [
         </div>
         <div>
                   <img
-                    src="/images/logisim/canva-logisim-evolution.png"
+                    src={base + '/images/logisim/canva-logisim-evolution.png'}
                     alt="Diseño en Canva: Logisim Evolution - herramienta educativa para circuitos digitales"
                     class="intro-canva"
                     loading="lazy"

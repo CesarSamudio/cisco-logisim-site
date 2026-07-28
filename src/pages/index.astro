@@ -4,6 +4,8 @@ import Button from '../components/Button.astro';
 import ImgPlaceholder from '../components/ImgPlaceholder.astro';
 import Team from '../components/Team.astro';
 
+const base = import.meta.env.BASE_URL;
+
 const apps = [
   {
     id: 'cisco-it',
@@ -12,7 +14,7 @@ const apps = [
     headline: 'ENSAMBLÁ UN PC DESDE CERO.',
     pitch: 'Motherboard, CPU, RAM, fuente y GPU. Practicá cada paso sin riesgo, sin cables y sin gastar un peso en hardware.',
     desc: 'Aplicación oficial de Cisco Networking Academy basada en Adobe Flash (ActionScript). Replica virtualmente el ensamblaje, configuración y diagnóstico de un PC de escritorio.',
-    href: '/cisco-it',
+    href: base + '/cisco-it',
     icon: '🖥️',
     accent: '#7c5dfa',
     stat: '+6M',
@@ -25,7 +27,7 @@ const apps = [
     headline: 'DISEÑÁ CIRCUITOS EN VIVO.',
     pitch: 'Compuertas AND/OR/NOT, sumadores, flip-flops y contadores. Ves la luz encenderse al instante y entendés cómo piensa una computadora por dentro.',
     desc: 'Herramienta educativa open source en Java para diseñar, simular y analizar circuitos digitales. Usada en universidades de todo el mundo.',
-    href: '/logisim',
+    href: base + '/logisim',
     icon: '⚡',
     accent: '#6332f6',
     stat: '100%',
@@ -55,10 +57,10 @@ const trust = [
         loop
         playsinline
         preload="metadata"
-        poster="/images/index/hero-index-poster.jpg"
+        poster={base + '/images/index/hero-index-poster.jpg'}
         aria-hidden="true"
       >
-        <source src="/videos/hero-index.mp4" type="video/mp4" />
+        <source src={base + '/videos/hero-index.mp4'} type="video/mp4" />
       </video>
       <div class="hero__overlay" aria-hidden="true"></div>
       <div class="hero__bg" aria-hidden="true">
@@ -110,9 +112,9 @@ const trust = [
               <span class="app-card__stat-label">{app.statLabel}</span>
             </div>
             {app.id === 'cisco-it' ? (
-              <img src="/images/index/cisco-captura.jpg" alt="Captura del simulador Cisco IT Essentials Virtual Desktop" class="app-card__img" />
+              <img src={base + '/images/index/cisco-captura.jpg'} alt="Captura del simulador Cisco IT Essentials Virtual Desktop" class="app-card__img" />
             ) : (
-              <img src="/images/index/logisim-captura.jpg" alt="Logo oficial de Logisim Evolution" class="app-card__img" />
+              <img src={base + '/images/index/logisim-captura.jpg'} alt="Logo oficial de Logisim Evolution" class="app-card__img" />
             )}
             <a href={app.href} class="app-card__link">
               Ver investigación completa
@@ -361,11 +363,19 @@ const trust = [
   margin-bottom: var(--space-4);
 }
 
-/* ===== APPS GRID ===== */
+/* ===== APPS GRID =====
+   2 columnas explícitas desde 720px para que SIEMPRE se vean las dos cards
+   lado a lado en cualquier viewport razonable. En <720px cae a 1 columna. */
 .apps-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: 1fr;
   gap: var(--space-6);
+}
+@media (min-width: 720px) {
+  .apps-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-7);
+  }
 }
 .app-card {
   /* Glassmorfismo fuerte — gradient lavanda visible AUN sin backdrop-filter.
