@@ -7,45 +7,45 @@ import YouTubeEmbed from '../components/YouTubeEmbed.astro';
 const base = import.meta.env.BASE_URL;
 
 const features = [
-  { icon: '{base}/images/cisco/icons/graduacion.svg', title: 'Uso educativo', desc: 'Diseñado para acompañar el currículo oficial de IT Essentials de Cisco Networking Academy.' },
-  { icon: '{base}/images/cisco/icons/escudo-check.svg', title: 'Sin riesgo de daño', desc: 'Permite practicar ensamblaje de componentes sin riesgo de dañar hardware real costoso.' },
-  { icon: '{base}/images/cisco/icons/globo-web.svg', title: 'Multiplataforma', desc: 'Corre en cualquier navegador moderno con soporte WebAssembly a través del emulador Ruffle.' },
-  { icon: '{base}/images/cisco/icons/gratis.svg', title: 'Gratuito', desc: 'Sin licencias, sin suscripciones, sin costo para los estudiantes de los Cisco Academies.' },
+  { icon: `${base}/images/cisco/icons/graduacion.svg`, title: 'Uso educativo', desc: 'Diseñado para acompañar el currículo oficial de IT Essentials de Cisco Networking Academy.' },
+  { icon: `${base}/images/cisco/icons/escudo-check.svg`, title: 'Sin riesgo de daño', desc: 'Permite practicar ensamblaje de componentes sin riesgo de dañar hardware real costoso.' },
+  { icon: `${base}/images/cisco/icons/globo-web.svg`, title: 'Multiplataforma', desc: 'Corre en cualquier navegador moderno con soporte WebAssembly a través del emulador Ruffle.' },
+  { icon: `${base}/images/cisco/icons/gratis.svg`, title: 'Gratuito', desc: 'Sin licencias, sin suscripciones, sin costo para los estudiantes de los Cisco Academies.' },
 ];
 
 const pros = [
-  { icon: '{base}/images/cisco/icons/dinero-cancelado.svg', title: 'Costo cero', desc: 'Totalmente gratuito para estudiantes inscritos en Cisco Academy.' },
-  { icon: '{base}/images/cisco/icons/refresh.svg', title: 'Práctica ilimitada', desc: 'Repite los procedimientos cuantas veces necesites sin gastar componentes reales.' },
-  { icon: '{base}/images/cisco/icons/libro-abierto.svg', title: 'Integrado con el curso', desc: 'Los laboratorios están alineados con el currículo oficial de IT Essentials v7.' },
+  { icon: `${base}/images/cisco/icons/dinero-cancelado.svg`, title: 'Costo cero', desc: 'Totalmente gratuito para estudiantes inscritos en Cisco Academy.' },
+  { icon: `${base}/images/cisco/icons/refresh.svg`, title: 'Práctica ilimitada', desc: 'Repite los procedimientos cuantas veces necesites sin gastar componentes reales.' },
+  { icon: `${base}/images/cisco/icons/libro-abierto.svg`, title: 'Integrado con el curso', desc: 'Los laboratorios están alineados con el currículo oficial de IT Essentials v7.' },
 ];
 
 const cons = [
-  { icon: '{base}/images/cisco/icons/alerta-triangulo.svg', title: 'Depende de Adobe Flash', desc: 'La aplicación original fue construida en ActionScript/Flash, tecnología descontinuada desde 2020. Solo funciona mediante el emulador Ruffle.' },
-  { icon: '{base}/images/cisco/icons/llave-inglesa.svg', title: 'No firmada en algunos OS', desc: 'En macOS requiere abrir desde Preferencias del Sistema la primera vez. Algunas versiones pueden disparar alertas de seguridad.' },
+  { icon: `${base}/images/cisco/icons/alerta-triangulo.svg`, title: 'Depende de Adobe Flash', desc: 'La aplicación original fue construida en ActionScript/Flash, tecnología descontinuada desde 2020. Solo funciona mediante el emulador Ruffle.' },
+  { icon: `${base}/images/cisco/icons/llave-inglesa.svg`, title: 'No firmada en algunos OS', desc: 'En macOS requiere abrir desde Preferencias del Sistema la primera vez. Algunas versiones pueden disparar alertas de seguridad.' },
 ];
 
 const steps = [
-  { title: 'Descarga desde Internet Archive', desc: 'Cisco IT Essentials Virtual Desktop NO está disponible oficialmente en NetAcad. La única fuente oficial preservada es Internet Archive: https://archive.org/details/laptop_202008. Descarga el archivo ZIP completo (incluye Laptop y PC Desktop, versión de agosto 2020).', img: '{base}/images/cisco/inst-01-descarga.jpg' },
-  { title: 'Extracción del archivo', desc: 'Descomprime el ZIP en una carpeta local con ruta corta, por ejemplo C:\\CiscoIT\\. Esto evita problemas con permisos de Windows y rutas largas.', img: '{base}/images/cisco/inst-02-extraccion.jpg' },
-  { title: 'Primera ejecución con Ruffle', desc: 'Si tu navegador no soporta Flash, instala Ruffle (https://ruffle.rs), un emulador open source en Rust. Ruffle detecta automáticamente los archivos .swf y los ejecuta en WebAssembly sin necesidad de plugins.', img: '{base}/images/cisco/inst-04-primer-launch.jpg' },
+  { title: 'Descarga desde Internet Archive', desc: 'Cisco IT Essentials Virtual Desktop NO está disponible oficialmente en NetAcad. La única fuente oficial preservada es Internet Archive: https://archive.org/details/laptop_202008. Descarga el archivo ZIP completo (incluye Laptop y PC Desktop, versión de agosto 2020).', img: `${base}/images/cisco/inst-01-descarga.jpg` },
+  { title: 'Extracción del archivo', desc: 'Descomprime el ZIP en una carpeta local con ruta corta, por ejemplo C:\\CiscoIT\\. Esto evita problemas con permisos de Windows y rutas largas.', img: `${base}/images/cisco/inst-02-extraccion.jpg` },
+  { title: 'Primera ejecución con Ruffle', desc: 'Si tu navegador no soporta Flash, instala Ruffle (https://ruffle.rs), un emulador open source en Rust. Ruffle detecta automáticamente los archivos .swf y los ejecuta en WebAssembly sin necesidad de plugins.', img: `${base}/images/cisco/inst-04-primer-launch.jpg` },
 ];
 
 const galleryImages = [
-  { label: 'IMG - Pantalla de inicio', caption: 'Pantalla de inicio del simulador Virtual Desktop', ratio: '4/3', src: '{base}/images/cisco/gal-pantalla-inicio.png' },
-  { label: 'IMG - Panel frontal del case', caption: 'Paso 1: retirar el panel frontal del case/gabinete', ratio: '4/3', src: '{base}/images/cisco/gal-panel-case.png' },
-  { label: 'IMG - Motherboard', caption: 'Paso 2: selección de la motherboard', ratio: '4/3', src: '{base}/images/cisco/gal-motherboard.png' },
-  { label: 'IMG - Tarjeta madre instalada', caption: 'Paso 3: instalación de la tarjeta madre en el case', ratio: '4/3', src: '{base}/images/cisco/gal-tarjeta-madre.png' },
-  { label: 'IMG - Instalar CPU', caption: 'Paso 4: instalar el procesador (CPU)', ratio: '4/3', src: '{base}/images/cisco/gal-cpu.png' },
-  { label: 'IMG - Aplicar pasta térmica', caption: 'Paso 5: aplicación de pasta térmica', ratio: '4/3', src: '{base}/images/cisco/gal-pasta.png' },
-  { label: 'IMG - Instalar CPU fan', caption: 'Paso 6: colocar el ventilador del CPU (CPU fan)', ratio: '4/3', src: '{base}/images/cisco/gal-cpu-fan.png' },
-  { label: 'IMG - Instalar disipador', caption: 'Paso 7: colocar el disipador sobre el CPU', ratio: '4/3', src: '{base}/images/cisco/gal-disipador.png' },
-  { label: 'IMG - Instalar RAM', caption: 'Paso 8: insertar módulos de memoria RAM', ratio: '4/3', src: '{base}/images/cisco/gal-ram.png' },
-  { label: 'IMG - Tarjeta NIC', caption: 'Paso 9: instalar la tarjeta de red (NIC)', ratio: '4/3', src: '{base}/images/cisco/gal-nic-real.png' },
-  { label: 'IMG - Instalar disco duro', caption: 'Paso 10: instalar disco duro en bahía', ratio: '4/3', src: '{base}/images/cisco/gal-disco.png' },
-  { label: 'IMG - Instalar fuente de poder', caption: 'Paso 11: instalar la fuente de poder (PSU)', ratio: '4/3', src: '{base}/images/cisco/gal-fuente.png' },
-  { label: 'IMG - Conectar cables de fuente', caption: 'Paso 12: conectar los cables de la fuente a los componentes', ratio: '4/3', src: '{base}/images/cisco/gal-cables-fuente.png' },
-  { label: 'IMG - Tarjeta de video', caption: 'Paso 13: instalar tarjeta gráfica (GPU)', ratio: '4/3', src: '{base}/images/cisco/gal-gpu-real.png' },
-  { label: 'IMG - Ensamblaje completo', caption: 'Resultado final del ensamblaje', ratio: '4/3', src: '{base}/images/cisco/gal-08-completo.jpg' },
+  { label: 'IMG - Pantalla de inicio', caption: 'Pantalla de inicio del simulador Virtual Desktop', ratio: '4/3', src: `${base}/images/cisco/gal-pantalla-inicio.png` },
+  { label: 'IMG - Panel frontal del case', caption: 'Paso 1: retirar el panel frontal del case/gabinete', ratio: '4/3', src: `${base}/images/cisco/gal-panel-case.png` },
+  { label: 'IMG - Motherboard', caption: 'Paso 2: selección de la motherboard', ratio: '4/3', src: `${base}/images/cisco/gal-motherboard.png` },
+  { label: 'IMG - Tarjeta madre instalada', caption: 'Paso 3: instalación de la tarjeta madre en el case', ratio: '4/3', src: `${base}/images/cisco/gal-tarjeta-madre.png` },
+  { label: 'IMG - Instalar CPU', caption: 'Paso 4: instalar el procesador (CPU)', ratio: '4/3', src: `${base}/images/cisco/gal-cpu.png` },
+  { label: 'IMG - Aplicar pasta térmica', caption: 'Paso 5: aplicación de pasta térmica', ratio: '4/3', src: `${base}/images/cisco/gal-pasta.png` },
+  { label: 'IMG - Instalar CPU fan', caption: 'Paso 6: colocar el ventilador del CPU (CPU fan)', ratio: '4/3', src: `${base}/images/cisco/gal-cpu-fan.png` },
+  { label: 'IMG - Instalar disipador', caption: 'Paso 7: colocar el disipador sobre el CPU', ratio: '4/3', src: `${base}/images/cisco/gal-disipador.png` },
+  { label: 'IMG - Instalar RAM', caption: 'Paso 8: insertar módulos de memoria RAM', ratio: '4/3', src: `${base}/images/cisco/gal-ram.png` },
+  { label: 'IMG - Tarjeta NIC', caption: 'Paso 9: instalar la tarjeta de red (NIC)', ratio: '4/3', src: `${base}/images/cisco/gal-nic-real.png` },
+  { label: 'IMG - Instalar disco duro', caption: 'Paso 10: instalar disco duro en bahía', ratio: '4/3', src: `${base}/images/cisco/gal-disco.png` },
+  { label: 'IMG - Instalar fuente de poder', caption: 'Paso 11: instalar la fuente de poder (PSU)', ratio: '4/3', src: `${base}/images/cisco/gal-fuente.png` },
+  { label: 'IMG - Conectar cables de fuente', caption: 'Paso 12: conectar los cables de la fuente a los componentes', ratio: '4/3', src: `${base}/images/cisco/gal-cables-fuente.png` },
+  { label: 'IMG - Tarjeta de video', caption: 'Paso 13: instalar tarjeta gráfica (GPU)', ratio: '4/3', src: `${base}/images/cisco/gal-gpu-real.png` },
+  { label: 'IMG - Ensamblaje completo', caption: 'Resultado final del ensamblaje', ratio: '4/3', src: `${base}/images/cisco/gal-08-completo.jpg` },
 ];
 
 const requirements = [
@@ -82,7 +82,7 @@ const videos = [
         poster={base + '/images/cisco/hero-poster.jpg'}
         aria-hidden="true"
       >
-        <source src={base + '/videos/hero-cisco.mp4'} type="video/mp4" />
+        <source src={base + '/videos/hero-cisco.mp4?v=2'} type="video/mp4" />
       </video>
       <!-- Tintado oscuro para que el texto blanco sea legible sobre cualquier video -->
       <div class="hero__overlay" aria-hidden="true"></div>
